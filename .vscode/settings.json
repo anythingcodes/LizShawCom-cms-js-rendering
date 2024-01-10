@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "*.html": "html-hubl",
+    "*.lyaml": "yaml",
+    "*.css": "css-hubl"
+  }
+}
