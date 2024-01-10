@@ -7,7 +7,7 @@ function Home() {
   return (
     <Layout>
       <div className={homeStyles.logo}>
-        <HubSpotSprocket link={'https://hubspot.com'} />
+        <HubSpotSprocket />
       </div>
     </Layout>
   );
