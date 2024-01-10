@@ -8,18 +8,18 @@ function Header({
   text = 'Hello from React!',
 }) {
   const navLinks = [
-    {
-      href: '/LizShawCom-home',
-      label: 'Home',
-    },
-    {
-      href: '/LizShawCom-todo',
-      label: 'Todo',
-    },
-    {
-      href: '/LizShawCom-cars',
-      label: 'Cars',
-    },
+    // {
+    //   href: '/LizShawCom-home',
+    //   label: 'Home',
+    // },
+    // {
+    //   href: '/LizShawCom-todo',
+    //   label: 'Todo',
+    // },
+    // {
+    //   href: '/LizShawCom-cars',
+    //   label: 'Cars',
+    // },
   ];
 
   return (

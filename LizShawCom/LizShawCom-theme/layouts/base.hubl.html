@@ -5,11 +5,12 @@
 <html lang="{{ html_lang }}" {{ html_lang_dir }}>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% if page_meta.html_title or pageTitle %}
       <title>{{ page_meta.html_title or pageTitle }}</title>
     {% endif %}
-    {% if brand_settings.primaryFavicon.src %}
-      <link rel="shortcut icon" href="{{ brand_settings.primaryFavicon.src }}" />
+    {% if domain_settings.favicon_src %}
+      <link rel="shortcut icon" href="{{ domain_settings.favicon_src }}" />
     {% endif %}
     <meta name="description" content="{{ page_meta.meta_description }}" />
     {{ standard_header_includes }}
@@ -20,7 +21,7 @@
         {% js_partial
           path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Header.jsx",
           brandColor="{{ theme.brand_color }}",
-          text="Hello from HubL!",
+          text="Hello from LizShaw.Com!",
           no_wrapper=True %}
       {% endblock header %}
 
