@@ -1,4 +1,4 @@
-{#{{ require_css(get_asset_url('../../main.css')) }}
+{{ require_css(get_asset_url('../../main.css')) }}
 {{ require_js(get_asset_url('../../main.js'), 'footer') }}
 {%- set instance_id = name %}
 
@@ -10,7 +10,7 @@
   </script>
 
   <div id="App--{{ instance_id }}"></div>
-</div>#}
+</div>
 
-{%- module "Card"
-path="@projects/LizShawCom-project/LizShawCom-app/components/modules/Card" -%}
+{#{%- module "Card"
+path="@projects/LizShawCom-project/LizShawCom-app/components/modules/Card" -%}#}
