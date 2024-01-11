@@ -1,11 +1,21 @@
-import footerStyles from '../../styles/footer.module.css';
+import React from 'react';
+// TODO: Essure autoprefixer set up
+import { styled } from 'styled-components';
+import StyledComponentsRegistry from '../StyledComponentsRegistry';
 
-function Footer() {
+const StyledFooter = styled.footer`
+  background-color: #ccc;
+  text-align: center;
+  font-size: 1.5em;
+  padding: 20px;
+`;
+
+const Footer = () => {
   return (
-    <footer className={footerStyles.footer}>
-      <p>Be Well.</p>
-    </footer>
+    <StyledComponentsRegistry>
+      <StyledFooter>Be Well!</StyledFooter>
+    </StyledComponentsRegistry>
   );
-}
+};
 
 export default Footer;
