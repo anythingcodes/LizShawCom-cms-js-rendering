@@ -2,7 +2,7 @@
   templateType: blog
   isAvailableForNewContent: true
   enableDomainStylesheets: true
-  label: Blog
+  label: LizShawCom Blog
 -->
 {% extends "./layouts/base.hubl.html" %}
 
@@ -12,4 +12,146 @@
     path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Home.jsx",
     no_wrapper=True %}
 
-{% endblock body %}
+    {%- if is_listing_view -%}
+      {# LISTING #}
+      {%- if !topic and !blog_author -%}
+        {# HOME #}
+        {%- module "module_15341108961761208" module_id="3514461" label="Banner" subtitle="Adventures in Torchbearer Sagas" -%}
+        {%- module "module_15341112306751222" module_id="3514462" label="Recent Product", overrideable=False -%}
+      {%- elif blog_author or topic -%}
+        {%- set title = (page_meta.html_title|split('|'))[1] -%}
+        {%- if blog_author -%}
+          {%- set title = 'Posts by ' ~ title -%}
+        {%- endif -%}
+        {%- set subtitle = blog_author.bio if blog_author else '' -%}
+        {%- module "module_15341108961761208_topic" module_id="3514461" label="Banner", title="{{ title }}", subtitle='{{ subtitle }}', variant='short', overrideable=False -%}
+      {%- endif -%}
+      <main{% if contents|length == 2 %} data-count="2" {% endif %} class="wrapper cards"{% if topic or blog_author %} data-variant="topic"{% endif %} data-bottom-top="transform: translateY(-50px);" data-center="transform: translateY(0px);">
+        {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCards %}
+        {{ renderCards(contents) }}
+      </main>
+
+      {%- unless simple_list_page -%}
+       {# PAGINATION #}
+       {%- if contents.total_page_count > 1 -%}
+          <div class="post-listing__pagination">
+              <ul>
+                  {# -1 from current page #}
+                  <li><a class="post-listing__pagination-first {% if current_page_num - 1 <= 0 %}disabled{% endif %}" rel="prev" href="{% if current_page_num - 1 <= 0  %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(last_page_num) }}{% endif %}">‹ Prev</a></li>
+
+                  {%- if (current_page_num == contents.total_page_count) and contents.total_page_count >= 5 -%}
+                  {# only shows up if we're on the last page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 2) }}">{{ last_page_num - 3 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if (current_page_num == contents.total_page_count or current_page_num == contents.total_page_count - 1) and contents.total_page_count >= 4 -%}
+                  {# only shows up if we're on the last or penultimate page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 2) }}">{{ last_page_num - 2 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if last_page_num > 1 and current_page_num <= contents.total_page_count %}
+                  {# -2 from current page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 1) }}">{{ last_page_num - 1 }}</a></li>
+                  {% endif %}
+
+                  {%- if last_page_num > 0 and current_page_num <= contents.total_page_count -%}
+                  {# -1 from current page #}
+                  <li><a class="post-listing__pagination-num" rel="prev" href="{{ blog_page_link(last_page_num) }}">{{ last_page_num }}</a></li>
+                  {%- endif -%}
+
+                  <li><a class="post-listing__pagination-num post-listing__pagination-current" href="{{ blog_page_link(current_page_num) }}">{{ current_page_num }}</a></li>
+
+
+                  {%- if next_page_num <= contents.total_page_count and next_page_num > current_page_num -%}
+                  {# +1 from current page #}
+                  <li><a class="post-listing__pagination-num" rel="next" href="{% if next_page_num == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num) }}{% endif %}">{{ next_page_num }}</a></li>
+                  {%- endif -%}
+
+                  {%- if next_page_num + 1 <= contents.total_page_count and next_page_num + 1 > current_page_num -%}
+                  {# +2 from current page #}
+                  <li><a class="post-listing__pagination-num" href="{% if next_page_num + 1 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num + 1) }}{% endif %}">{{ next_page_num + 1 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if (current_page_num + 3 == 4 or current_page_num + 3 == 5) and contents.total_page_count >= 4 -%}
+                  {# only shows up if we're on the first or second page #}
+                  <li><a class="post-listing__pagination-num" href="{% if current_page_num + 3 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(current_page_num + 3) }}{% endif %}">{{ current_page_num + 3 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if current_page_num + 4 == 5 and contents.total_page_count >= 5 -%}
+                  {# only shows up if we're on the first page #}
+                  <li><a class="post-listing__pagination-num" href="{% if current_page_num + 4 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(5) }}{% endif %}">{{ current_page_num + 4 }}</a></li>
+                  {%- endif -%}
+
+                  {# +1 from current page  #}
+                  <li><a class="post-listing__pagination-last {% if current_page_num + 1 > contents.total_page_count %}disabled{% endif %}" rel="next" href="{% if current_page_num + 1 > contents.total_page_count or current_page_num + 1 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num) }}{% endif %}">Next ›</a></li>
+              </ul>
+          </div>
+      {% endif %}
+    {%- endunless -%}
+    {%- else -%}
+
+      {# INDIVIDUAL POST #}
+      {%- choice "theme" label='Choose theme', value='Bounded-Right', choices='Bounded-Right, Bounded-Right-Rainbow, Bounded-Left, Unbounded-Clear, Unbounded-Filled, Unbounded-Filled-Purple' export_to_template_context=True -%}
+      {%- boolean "include_term_sheet" label="Include term sheet", value='False', no_wrapper=True, export_to_template_context=True -%}
+      {%- image "custom_listing_image" label='Select a custom listing image', src='', export_to_template_context=True -%}
+      {#
+        {%- module "module_15341108961761208_post" module_id="3514461" label="Banner", title="{{ content.name|striptags }}", subtitle="{{ content.meta_description }}", image={src="{{ content.featured_image or '' }}"}, variant='short' -%}
+        <!-- template scope: {{ content.name|striptags }}/{{ content.meta_description }}/{{ content.featured_image or '' }} -->
+      #}
+      {%- set indivPostTitle = content.name|striptags -%}
+      {%- set indivFeaturedImage = content.featured_image or 'https://cdn2.hubspot.net/hubfs/2068068/assets/banners/shieldwall-illustration-gibeault.png' -%}
+      {#{%- module "module_156545840754012" path="/Templates/Custom/Blog/Mordite Blog/Custom Modules/Banner", label="Banner", title="{{ indivPostTitle }}", subtitle="{{ content.meta_description }}", image={src="{{ indivFeaturedImage }}"}, variant='short' -%}#}
+      <main class="wrapper post">
+        <section class="post__meta">
+          <h2>
+            {{ content.name }}
+          </h2>
+          <div id="hubspot-author_data" class="hubspot-editable post__author" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+            {%- if content.blog_post_author.avatar -%}
+              <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" class="post__author-avatar">
+                <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ resize_image_url(content.blog_post_author.avatar, 70) }}" alt="Photo of {{ content.blog_post_author.display_name }}" />
+              </a>
+            {%- endif -%}
+            <div class="post__author-meta">
+              Written by <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a> on {{ content.publish_date_localized }}
+              <div class="post__author-meta-comments">
+                {%- if useComments -%}
+                  {%- set comments_number =  content.comment_list|length -%}
+                  {%- set comments_label = "comment" if comments_number == 1 else "comments" -%}
+                  {{ comments_number }} {{ comments_label }} &nbsp; | &nbsp;<a href="{{content.absolute_url}}#comments-listing">Add a comment</a>
+                {%- endif -%}
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <article class="post__article">
+          {{ content.post_body|cut('<br>')|cut('<br />')|cut('<br/>') }}
+        </article>
+
+
+
+        <h3 class="post__centered-heading">Further Reading</h3>
+        <aside class="cards" data-variant="related" role="supplemental">
+          {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCard %}
+          {% related_blog_posts blog_ids="3920686537", limit=3, post_formatter="renderCard", no_wrapper=True %}
+        </aside>
+
+        <section class="post__comments" {% unless useComments %} style="display:none;"{% endunless %}>
+          <h3 class="post__centered-heading">Discussion</h3>
+          {%- blog_comments "blog_comments" overrideable=False, label='Comments' -%}
+        </section>
+
+        {%- if content.topic_list -%}
+          <p class="post__topics"> Topics:
+            {% for topic in content.topic_list %}
+              <a class="post__topics-link" href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if not loop.last %},{% endif %}
+            {% endfor %}
+          </p>
+        {%- endif -%}
+      </main>
+    {% endif %}
+    {%- set postImage = content.widgets.module_15341108961761208_post.body.image.src or content.widgets.module_15341108961761208.body.image.src or content.featured_image -%}
+    {# {%- include 'Templates/Custom/Blog/Mordite Blog/Templates/Blog_Footer.html' -%} #}
+    {% endblock body %}
