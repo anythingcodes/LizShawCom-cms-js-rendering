@@ -1,0 +1,89 @@
+<!--
+  templateType: blog_listing
+  isAvailableForNewContent: true
+  enableDomainStylesheets: true
+  label: LizShaw.com Blog Listing
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+
+      {# LISTING #}
+      {%- if !topic and !blog_author -%}
+        {# HOME #}
+        {%- module "module_15341108961761208" module_id="3514461" label="Banner" subtitle="Adventures in Torchbearer Sagas" -%}
+        {%- module "module_15341112306751222" module_id="3514462" label="Recent Product", overrideable=False -%}
+      {%- elif blog_author or topic -%}
+        {%- set title = (page_meta.html_title|split('|'))[1] -%}
+        {%- if blog_author -%}
+          {%- set title = 'Posts by ' ~ title -%}
+        {%- endif -%}
+        {%- set subtitle = blog_author.bio if blog_author else '' -%}
+        {%- module "module_15341108961761208_topic" module_id="3514461" label="Banner", title="{{ title }}", subtitle='{{ subtitle }}', variant='short', overrideable=False -%}
+      {%- endif -%}
+      <main{% if contents|length == 2 %} data-count="2" {% endif %} class="wrapper cards"{% if topic or blog_author %} data-variant="topic"{% endif %} data-bottom-top="transform: translateY(-50px);" data-center="transform: translateY(0px);">
+        {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCards %}
+        {{ renderCards(contents) }}
+      </main>
+
+      {%- unless simple_list_page -%}
+       {# PAGINATION #}
+       {%- if contents.total_page_count > 1 -%}
+          <div class="post-listing__pagination">
+              <ul>
+                  {# -1 from current page #}
+                  <li><a class="post-listing__pagination-first {% if current_page_num - 1 <= 0 %}disabled{% endif %}" rel="prev" href="{% if current_page_num - 1 <= 0  %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(last_page_num) }}{% endif %}">‹ Prev</a></li>
+
+                  {%- if (current_page_num == contents.total_page_count) and contents.total_page_count >= 5 -%}
+                  {# only shows up if we're on the last page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 2) }}">{{ last_page_num - 3 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if (current_page_num == contents.total_page_count or current_page_num == contents.total_page_count - 1) and contents.total_page_count >= 4 -%}
+                  {# only shows up if we're on the last or penultimate page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 2) }}">{{ last_page_num - 2 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if last_page_num > 1 and current_page_num <= contents.total_page_count %}
+                  {# -2 from current page #}
+                  <li><a class="post-listing__pagination-num" href="{{ blog_page_link(last_page_num - 1) }}">{{ last_page_num - 1 }}</a></li>
+                  {% endif %}
+
+                  {%- if last_page_num > 0 and current_page_num <= contents.total_page_count -%}
+                  {# -1 from current page #}
+                  <li><a class="post-listing__pagination-num" rel="prev" href="{{ blog_page_link(last_page_num) }}">{{ last_page_num }}</a></li>
+                  {%- endif -%}
+
+                  <li><a class="post-listing__pagination-num post-listing__pagination-current" href="{{ blog_page_link(current_page_num) }}">{{ current_page_num }}</a></li>
+
+
+                  {%- if next_page_num <= contents.total_page_count and next_page_num > current_page_num -%}
+                  {# +1 from current page #}
+                  <li><a class="post-listing__pagination-num" rel="next" href="{% if next_page_num == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num) }}{% endif %}">{{ next_page_num }}</a></li>
+                  {%- endif -%}
+
+                  {%- if next_page_num + 1 <= contents.total_page_count and next_page_num + 1 > current_page_num -%}
+                  {# +2 from current page #}
+                  <li><a class="post-listing__pagination-num" href="{% if next_page_num + 1 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num + 1) }}{% endif %}">{{ next_page_num + 1 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if (current_page_num + 3 == 4 or current_page_num + 3 == 5) and contents.total_page_count >= 4 -%}
+                  {# only shows up if we're on the first or second page #}
+                  <li><a class="post-listing__pagination-num" href="{% if current_page_num + 3 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(current_page_num + 3) }}{% endif %}">{{ current_page_num + 3 }}</a></li>
+                  {%- endif -%}
+
+                  {%- if current_page_num + 4 == 5 and contents.total_page_count >= 5 -%}
+                  {# only shows up if we're on the first page #}
+                  <li><a class="post-listing__pagination-num" href="{% if current_page_num + 4 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(5) }}{% endif %}">{{ current_page_num + 4 }}</a></li>
+                  {%- endif -%}
+
+                  {# +1 from current page  #}
+                  <li><a class="post-listing__pagination-last {% if current_page_num + 1 > contents.total_page_count %}disabled{% endif %}" rel="next" href="{% if current_page_num + 1 > contents.total_page_count or current_page_num + 1 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num) }}{% endif %}">Next ›</a></li>
+              </ul>
+          </div>
+      {% endif %}
+    {%- endunless -%}
+
+    {%- set postImage = content.widgets.module_15341108961761208_post.body.image.src or content.widgets.module_15341108961761208.body.image.src or content.featured_image -%}
+    {# {%- include 'Templates/Custom/Blog/Mordite Blog/Templates/Blog_Footer.html' -%} #}
+    {% endblock body %}

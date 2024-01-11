@@ -1,0 +1,72 @@
+<!--
+  templateType: blog_post
+  isAvailableForNewContent: true
+  enableDomainStylesheets: true
+  label: LizShaw.com Blog Post
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+
+  {# INDIVIDUAL POST #}
+  {%- choice "theme" label='Choose theme', value='Bounded-Right', choices='Bounded-Right, Bounded-Right-Rainbow, Bounded-Left, Unbounded-Clear, Unbounded-Filled, Unbounded-Filled-Purple' export_to_template_context=True -%}
+    {%- boolean "include_term_sheet" label="Include term sheet", value='False', no_wrapper=True, export_to_template_context=True -%}
+    {%- image "custom_listing_image" label='Select a custom listing image', src='', export_to_template_context=True -%}
+    {#
+      {%- module "module_15341108961761208_post" module_id="3514461" label="Banner", title="{{ content.name|striptags }}", subtitle="{{ content.meta_description }}", image={src="{{ content.featured_image or '' }}"}, variant='short' -%}
+      <!-- template scope: {{ content.name|striptags }}/{{ content.meta_description }}/{{ content.featured_image or '' }} -->
+    #}
+    {%- set indivPostTitle = content.name|striptags -%}
+    {%- set indivFeaturedImage = content.featured_image or 'https://cdn2.hubspot.net/hubfs/2068068/assets/banners/shieldwall-illustration-gibeault.png' -%}
+    {#{%- module "module_156545840754012" path="/Templates/Custom/Blog/Mordite Blog/Custom Modules/Banner", label="Banner", title="{{ indivPostTitle }}", subtitle="{{ content.meta_description }}", image={src="{{ indivFeaturedImage }}"}, variant='short' -%}#}
+    <main class="wrapper post">
+      <section class="post__meta">
+        <h2>
+          {{ content.name }}
+        </h2>
+        <div id="hubspot-author_data" class="hubspot-editable post__author" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+          {%- if content.blog_post_author.avatar -%}
+            <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" class="post__author-avatar">
+              <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ resize_image_url(content.blog_post_author.avatar, 70) }}" alt="Photo of {{ content.blog_post_author.display_name }}" />
+            </a>
+          {%- endif -%}
+          <div class="post__author-meta">
+            Written by <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a> on {{ content.publish_date_localized }}
+            <div class="post__author-meta-comments">
+              {%- if useComments -%}
+                {%- set comments_number =  content.comment_list|length -%}
+                {%- set comments_label = "comment" if comments_number == 1 else "comments" -%}
+                {{ comments_number }} {{ comments_label }} &nbsp; | &nbsp;<a href="{{content.absolute_url}}#comments-listing">Add a comment</a>
+              {%- endif -%}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <article class="post__article">
+        {{ content.post_body|cut('<br>')|cut('<br />')|cut('<br/>') }}
+      </article>
+
+
+
+      <h3 class="post__centered-heading">Further Reading</h3>
+      <aside class="cards" data-variant="related" role="supplemental">
+        {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCard %}
+        {% related_blog_posts blog_ids="3920686537", limit=3, post_formatter="renderCard", no_wrapper=True %}
+      </aside>
+
+      <section class="post__comments" {% unless useComments %} style="display:none;"{% endunless %}>
+        <h3 class="post__centered-heading">Discussion</h3>
+        {%- blog_comments "blog_comments" overrideable=False, label='Comments' -%}
+      </section>
+
+      {%- if content.topic_list -%}
+        <p class="post__topics"> Topics:
+          {% for topic in content.topic_list %}
+            <a class="post__topics-link" href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if not loop.last %},{% endif %}
+          {% endfor %}
+        </p>
+      {%- endif -%}
+    </main>
+{% endblock body %}
