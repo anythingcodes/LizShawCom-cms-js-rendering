@@ -12,6 +12,14 @@
   {%- choice "theme" label='Choose theme', value='Bounded-Right', choices='Bounded-Right, Bounded-Right-Rainbow, Bounded-Left, Unbounded-Clear, Unbounded-Filled, Unbounded-Filled-Purple' export_to_template_context=True -%}
     {%- boolean "include_term_sheet" label="Include term sheet", value='False', no_wrapper=True, export_to_template_context=True -%}
     {%- image "custom_listing_image" label='Select a custom listing image', src='', export_to_template_context=True -%}
+    {%- js_partial
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Banner.tsx",
+      title="{{ content.name|striptags }}",
+      subtitle="{{ content.meta_description }}",
+      image="{{ content.featured_image or '' }}",
+      variant='short'
+      no_wrapper=True
+    -%}
     {#
       {%- module "module_15341108961761208_post" module_id="3514461" label="Banner", title="{{ content.name|striptags }}", subtitle="{{ content.meta_description }}", image={src="{{ content.featured_image or '' }}"}, variant='short' -%}
       <!-- template scope: {{ content.name|striptags }}/{{ content.meta_description }}/{{ content.featured_image or '' }} -->
