@@ -11,7 +11,8 @@
       {# LISTING #}
       {%- if !topic and !blog_author -%}
         {# HOME #}
-        {%- module "module_15341108961761208" module_id="3514461" label="Banner" subtitle="Adventures in Torchbearer Sagas" -%}
+        {# TODO: Banner module #}
+        {%- module "module_15341108961761208" module_id="3514461" label="Banner" subtitle="Home" -%}
         {%- module "module_15341112306751222" module_id="3514462" label="Recent Product", overrideable=False -%}
       {%- elif blog_author or topic -%}
         {%- set title = (page_meta.html_title|split('|'))[1] -%}
@@ -21,7 +22,7 @@
         {%- set subtitle = blog_author.bio if blog_author else '' -%}
         {%- module "module_15341108961761208_topic" module_id="3514461" label="Banner", title="{{ title }}", subtitle='{{ subtitle }}', variant='short', overrideable=False -%}
       {%- endif -%}
-      <main{% if contents|length == 2 %} data-count="2" {% endif %} class="wrapper cards"{% if topic or blog_author %} data-variant="topic"{% endif %} data-bottom-top="transform: translateY(-50px);" data-center="transform: translateY(0px);">
+      <main{% if contents|length == 2 %} data-count="2" {% endif %} class="wrapper cards"{% if topic or blog_author %} data-variant="topic"{% endif %}>
         {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCards %}
         {{ renderCards(contents) }}
       </main>
