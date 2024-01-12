@@ -5,7 +5,7 @@ import StyledComponentsRegistry from '../StyledComponentsRegistry';
 interface Props {
   title: string;
   subtitle?: string;
-  imageSrc?: string;
+  // imageSrc?: string;
   color?: 'purple' | 'green' | 'blue';
   bottomImage?: 'bubble' | 'wave';
 }
@@ -73,10 +73,10 @@ const StyledBanner = styled.section<{
       : null};
 `;
 
-const Footer = ({
-  color = 'purple',
+const Banner = ({
+  color = 'green',
   bottomImage = 'wave',
-  imageSrc,
+  // imageSrc,
   subtitle,
   title,
 }: Props) => {
@@ -85,10 +85,10 @@ const Footer = ({
       <StyledBanner $color={color} $bottomImage={bottomImage}>
         <h1>{title}</h1>
         {subtitle && <p>{subtitle}</p>}
-        {imageSrc && <img src={imageSrc} alt={title} />}
+        {/* {imageSrc && <img src={imageSrc} alt={title} />} */}
       </StyledBanner>
     </StyledComponentsRegistry>
   );
 };
 
-export default Footer;
+export default Banner;
