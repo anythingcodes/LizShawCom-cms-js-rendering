@@ -7,13 +7,15 @@ interface Props {
 }
 
 type Post = {
+  featured_image?: string;
   html_title: string;
   post_summary: string;
-  featured_image?: string;
+  url: string;
 };
 
-const Post = styled.div<{ image: Post['featured_image'] }>`
+const Post = styled.a<{ image: Post['featured_image'] }>`
   border: 1px solid blue;
+  display: block;
   ${({ image }) => {
     if (!image) return null;
 
@@ -30,11 +32,12 @@ const BlogListing = ({ postCollection }: Props) => {
     <StyledComponentsRegistry>
       {posts.map(
         ({
+          featured_image: image,
           html_title: title,
           post_summary: summary,
-          featured_image: image,
+          url,
         }) => (
-          <Post key={title} image={image}>
+          <Post key={title} image={image} href={url}>
             <h2>{title}</h2>
             <p>{image}</p>
             <div dangerouslySetInnerHTML={{ __html: summary }} />
