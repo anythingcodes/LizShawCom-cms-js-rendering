@@ -7,5 +7,14 @@
       "color": "#FF7A59",
       "opacity": 100
     }
+  },
+  {
+    "name": "global_css_file",
+    "label": "Global CSS File",
+    "required": false,
+    "locked": false,
+    "type": "file",
+    "picker": "file",
+    "default": null
   }
 ]
