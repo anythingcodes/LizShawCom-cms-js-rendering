@@ -17,17 +17,11 @@
       title="{{ content.name|striptags }}",
       subtitle="{{ content.meta_description }}",
       image="{{ content.featured_image or '' }}",
-      variant='short'
       no_wrapper=True
     -%}
     {%- set indivPostTitle = content.name|striptags -%}
-    {%- set indivFeaturedImage = content.featured_image or 'https://cdn2.hubspot.net/hubfs/2068068/assets/banners/shieldwall-illustration-gibeault.png' -%}
-    {#{%- module "module_156545840754012" path="/Templates/Custom/Blog/Mordite Blog/Custom Modules/Banner", label="Banner", title="{{ indivPostTitle }}", subtitle="{{ content.meta_description }}", image={src="{{ indivFeaturedImage }}"}, variant='short' -%}#}
     <main class="wrapper post">
       <section class="post__meta">
-        <h2>
-          {{ content.name }}
-        </h2>
         <div id="hubspot-author_data" class="hubspot-editable post__author" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
           {%- if content.blog_post_author.avatar -%}
             <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" class="post__author-avatar">
