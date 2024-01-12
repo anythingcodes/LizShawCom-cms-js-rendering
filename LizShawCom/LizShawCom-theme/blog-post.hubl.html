@@ -20,10 +20,6 @@
       variant='short'
       no_wrapper=True
     -%}
-    {#
-      {%- module "module_15341108961761208_post" module_id="3514461" label="Banner", title="{{ content.name|striptags }}", subtitle="{{ content.meta_description }}", image={src="{{ content.featured_image or '' }}"}, variant='short' -%}
-      <!-- template scope: {{ content.name|striptags }}/{{ content.meta_description }}/{{ content.featured_image or '' }} -->
-    #}
     {%- set indivPostTitle = content.name|striptags -%}
     {%- set indivFeaturedImage = content.featured_image or 'https://cdn2.hubspot.net/hubfs/2068068/assets/banners/shieldwall-illustration-gibeault.png' -%}
     {#{%- module "module_156545840754012" path="/Templates/Custom/Blog/Mordite Blog/Custom Modules/Banner", label="Banner", title="{{ indivPostTitle }}", subtitle="{{ content.meta_description }}", image={src="{{ indivFeaturedImage }}"}, variant='short' -%}#}
