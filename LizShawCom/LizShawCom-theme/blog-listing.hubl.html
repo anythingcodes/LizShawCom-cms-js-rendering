@@ -3,40 +3,29 @@
   isAvailableForNewContent: true
   enableDomainStylesheets: true
   label: LizShaw.com Blog Listing
+  dataQueryPath: ./blog-listing.graphql
 -->
 {% extends "./layouts/base.hubl.html" %}
 
+{%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
+
 {% block body %}
 
-      {# LISTING #}
-      {%- if !topic and !blog_author -%}
-        {# HOME #}
-        {%- js_partial
-          path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Banner.tsx",
-          title="Home",
-          no_wrapper=True
-        -%}
-        {%- module "module_15341112306751222" module_id="3514462" label="Recent Product", overrideable=False -%}
-      {%- elif blog_author or topic -%}
-        {%- set title = (page_meta.html_title|split('|'))[1] -%}
-        {%- if blog_author -%}
-          {%- set title = 'Posts by ' ~ title -%}
-        {%- endif -%}
-        {%- set subtitle = blog_author.bio if blog_author else '' -%}
-        {%- js_partial
-          path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Banner.tsx",
-          title="{{ title }}",
-          subtitle="{{ subtitle }}"
-          no_wrapper=True
-        -%}
-      {%- endif -%}
-      <main{% if contents|length == 2 %} data-count="2" {% endif %} class="wrapper cards"{% if topic or blog_author %} data-variant="topic"{% endif %}>
-        {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCards %}
-        {{ renderCards(contents) }}
-      </main>
+  {%- js_partial
+    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListing.tsx",
+    postCollection="{{ blog_posts|tojson }}"
+    no_wrapper=True
+  -%}
 
+  {# TODO: Home (!topic and !blog_author) #}
+  {# TODO: blog_author or topic #}
+
+
+  {%- set postImage = content.widgets.module_15341108961761208_post.body.image.src or content.widgets.module_15341108961761208.body.image.src or content.featured_image -%}
+
+
+      {# TODO: Pagination #}
       {%- unless simple_list_page -%}
-       {# PAGINATION #}
        {%- if contents.total_page_count > 1 -%}
           <div class="post-listing__pagination">
               <ul>
@@ -92,7 +81,4 @@
           </div>
       {% endif %}
     {%- endunless -%}
-
-    {%- set postImage = content.widgets.module_15341108961761208_post.body.image.src or content.widgets.module_15341108961761208.body.image.src or content.featured_image -%}
-    {# {%- include 'Templates/Custom/Blog/Mordite Blog/Templates/Blog_Footer.html' -%} #}
-    {% endblock body %}
+  {% endblock body %}

@@ -1,0 +1,11 @@
+query BlogListingQuery {
+  BLOG {
+    post_collection(filter: {content_group_id__eq: "152508306949"}) {
+      items {
+        html_title
+        featured_image
+        post_summary
+      }
+    }
+  }
+}
