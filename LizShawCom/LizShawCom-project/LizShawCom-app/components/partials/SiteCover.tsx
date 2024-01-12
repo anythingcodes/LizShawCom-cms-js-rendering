@@ -1,6 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
+// @ts-expect-error Untyped
+import siteCoverHref from '../../assets/site-cover.jpg';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -39,7 +41,7 @@ const SiteCover = () => (
   <StyledComponentsRegistry>
     <Wrapper aria-hidden={true}>
       <ImgWrapper>
-        <Img loading="lazy" src={require('../../assets/site-cover.jpg')} />
+        <Img loading="lazy" src={siteCoverHref} />
       </ImgWrapper>
     </Wrapper>
   </StyledComponentsRegistry>

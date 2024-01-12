@@ -20,10 +20,12 @@
     {{ standard_header_includes }}
   </head>
   <body class="{{ builtin_body_classes }}">
-    {%- block header -%}
-      {# TODO: Nav, search, etc. #}
-      {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/SiteCover.tsx", no_wrapper=True -%}
-    {%- endblock header -%}
+    {# SITE COVER BG #}
+    {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/SiteCover.tsx", no_wrapper=True -%}
+
+    {# TODO: Nav, search, etc. #}
+    {#{%- block header -%}
+    {%- endblock header -%}#}
 
     {# <main> rendered in listing and post templates #}
     {%- block body -%}
