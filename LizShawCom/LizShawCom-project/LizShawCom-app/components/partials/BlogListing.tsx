@@ -8,22 +8,15 @@ interface Props {
 
 type Post = {
   featured_image?: string;
+  featured_image_alt_text?: string;
   html_title: string;
   post_summary: string;
   url: string;
 };
 
-const Post = styled.a<{ image: Post['featured_image'] }>`
+const Post = styled.a<{ $image: Post['featured_image'] }>`
   border: 1px solid blue;
   display: block;
-  ${({ image }) => {
-    if (!image) return null;
-
-    return `
-    &::before{
-      content: url('${image}');
-    }`;
-  }}
 `;
 
 const BlogListing = ({ postCollection }: Props) => {
@@ -33,13 +26,16 @@ const BlogListing = ({ postCollection }: Props) => {
       {posts.map(
         ({
           featured_image: image,
+          featured_image_alt_text: imageAlt,
           html_title: title,
           post_summary: summary,
           url,
         }) => (
-          <Post key={title} image={image} href={url}>
+          <Post key={title} $image={image} href={url}>
             <h2>{title}</h2>
-            <p>{image}</p>
+            {image && (
+              <img src={image} alt={imageAlt || title} loading="lazy" />
+            )}
             <div dangerouslySetInnerHTML={{ __html: summary }} />
           </Post>
         ),

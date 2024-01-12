@@ -8,6 +8,9 @@
 {% extends "./layouts/base.hubl.html" %}
 
 {%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
+{%- for blog_post in blog_posts -%}
+  {%- do blog_post.update({"featured_image": resize_image_url(blog_post.featured_image, 200) }) -%}
+{%- endfor -%}
 
 {% block body %}
 

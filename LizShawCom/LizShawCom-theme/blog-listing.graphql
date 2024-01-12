@@ -4,6 +4,7 @@ query BlogListingQuery {
       items {
         html_title
         featured_image
+        featured_image_alt_text
         post_summary
         url
       }
