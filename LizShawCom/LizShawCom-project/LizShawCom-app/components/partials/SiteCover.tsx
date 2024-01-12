@@ -15,6 +15,15 @@ const ImgWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  &::after {
+    content: '';
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, #fff 95%);
+  }
 `;
 
 const Img = styled.img`
