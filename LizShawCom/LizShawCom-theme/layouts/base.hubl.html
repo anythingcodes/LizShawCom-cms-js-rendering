@@ -12,6 +12,8 @@
     {%- if domain_settings.favicon_src -%}
       <link rel="shortcut icon" href="{{ domain_settings.favicon_src }}" />
     {%- endif -%}
+    {# Global CSS #}
+    <link rel="stylesheet" href="{{ get_asset_url('/LizShawCom-theme/lizshawcom-global.css') }}" />
     <meta name="description" content="{{ page_meta.meta_description }}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="author" content="{{ meta_author }}" />
