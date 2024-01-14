@@ -11,6 +11,8 @@
   --fs-4: clamp(0.9rem, 0.83rem + 0.23vw, 1.09rem);
   --fs-5: clamp(0.8rem, 0.73rem + 0.13vw, 0.99rem);
   --fs-6: clamp(0.7rem, 0.63rem + 0.03vw, 0.89rem);
+  --ff-heading: Philosopher,Helvetica Neue,Helvetica,Arial,sans-serif;
+  --ff-body: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
 html,
@@ -129,7 +131,7 @@ html {
 
 body {
   font-size: var(--fs-body);
-  font-family: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: var(--ff-body);
   line-height: 1.25;
   word-break: break-word;
   color: #070e19;
@@ -165,7 +167,7 @@ object {
 input,
 button,
 select {
-  font-family: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: var(--ff-body);
   font-size: var(--fs-body);
 }
 
@@ -179,7 +181,7 @@ p {
 
 h1,h2,h3,h4,h5,h6 {
   margin-bottom: 0.25em;
-  font-family: "Philosopher",Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: var(--ff-heading);
   font-weight: 700;
   letter-spacing: normal;
 }
@@ -204,8 +206,17 @@ h5 {font-size: var(--fs-5); }
 h6 {font-size: var(--fs-6);}
 
 a {
-  transition: 0.35s ease color;
   text-decoration: none;
+  color: #070e19;
+  border-bottom: 1px solid rgba(100, 40, 100, 0);
+  -webkit-transition: border 500ms ease-in-out;
+  -moz-transition: border 500ms ease-in-out;
+  -ms-transition: border 500ms ease-in-out;
+  -o-transition: border 500ms ease-in-out;
+  transition: border 500ms ease-in-out;
+}
+a:hover {
+  border-bottom: 1px solid rgba(100, 40, 100, 1);
 }
 
 em {

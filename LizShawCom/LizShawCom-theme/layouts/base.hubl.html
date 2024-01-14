@@ -27,12 +27,41 @@
     {{ standard_header_includes }}
   </head>
   <body class="{{ builtin_body_classes }}">
-    {# SITE COVER BG #}
-    {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/SiteCover.tsx", no_wrapper=True -%}
 
-    {# TODO: Nav, search, etc. #}
-    {#{%- block header -%}
-    {%- endblock header -%}#}
+  {# SITE COVER BG #}
+  {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/SiteCover.tsx", no_wrapper=True -%}
+
+  {# TODO: Nav, search, etc. #}
+  {%- block header -%}
+
+    {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Header.tsx", no_wrapper=True -%}
+{#
+
+    {%- menu
+    flyouts=False,
+    site_map_name="LizShaw.com Header",
+    root_type='site_root',
+    no_wrapper=True,
+    id=153031011889,
+    max_levels=1,
+    overrideable=False
+  -%} #}
+
+  {# site_map_name="LizShaw.com Header",
+  root_type="site_root",
+  no_wrapper=True,
+  max_levels=1,
+  parent_widget_container=null,
+  id=153031011889,
+  tag="menu",
+  flyouts=False,
+  type="menu",
+  overrideable=False, #}
+      {% module "header"
+      path="@projects/LizShawCom-project/LizShawCom-app/components/modules/Header",
+      no_wrapper=True %}
+
+  {%- endblock header -%}
 
     {# <main> rendered in listing and post templates #}
     {%- block body -%}
