@@ -9,13 +9,19 @@ interface Props {
 
 const Section = styled.section`
   max-width: var(--container-max-width);
-  padding: 0 40px;
+  padding: 0 var(--gutter-mobile);
   margin: 0 auto 80px auto;
+  @media screen and (min-width: 768px) {
+    padding-left: 40px;
+    padding-left: 40px;
+  }
 `;
 
 const H1 = styled.h1`
-  font-size: var(--fs-0);
-  line-height: 1.1;
+  @media screen and (min-width: 768px) {
+    font-size: var(--fs-0);
+    line-height: 1.1;
+  }
 `;
 
 const Hero = ({ description, title }: Props) => {

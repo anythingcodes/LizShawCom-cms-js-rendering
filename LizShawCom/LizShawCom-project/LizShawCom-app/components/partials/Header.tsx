@@ -5,7 +5,11 @@ import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 
 const Wrapper = styled.header`
-  padding: 40px 56px;
+  padding: 40px var(--gutter-mobile);
+  @media screen and (min-width: 768px) {
+    padding-left: var(--gutter-desktop);
+    padding-left: var(--gutter-desktop);
+  }
 `;
 
 const Logo = styled.a`

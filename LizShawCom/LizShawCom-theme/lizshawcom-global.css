@@ -13,6 +13,8 @@
   --fs-6: clamp(0.7rem, 0.63rem + 0.03vw, 0.89rem);
   --ff-heading: Philosopher,Helvetica Neue,Helvetica,Arial,sans-serif;
   --ff-body: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
+  --gutter-mobile: 20px;
+  --gutter-desktop: 56px;
 }
 
 html,

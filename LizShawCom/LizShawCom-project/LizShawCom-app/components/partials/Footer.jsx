@@ -5,10 +5,14 @@ import StyledComponentsRegistry from '../StyledComponentsRegistry';
 const StyledFooter = styled.footer`
   text-align: center;
   font-size: var(--fs-5);
-  padding: 40px 56px;
+  padding: 40px var(--gutter-mobile);
   margin-top: 80px;
   border-top: 1px solid #eeeff1;
   color: #707584;
+  @media screen and (min-width: 768px) {
+    padding-left: var(--gutter-desktop);
+    padding-left: var(--gutter-desktop);
+  }
 `;
 
 const Footer = () => {
