@@ -152,7 +152,7 @@ const Card = ({
         {width === 'large' && <Featured>Featured</Featured>}
         <ImageLink href={url} title={title}>
           <CardOverlay color={color} />
-          <Img alt={imageAlt} src={imageSrc} />
+          <Img alt={imageAlt} src={imageSrc} loading="lazy" />
         </ImageLink>
         <Content>
           {computedTags.length > 0 && (

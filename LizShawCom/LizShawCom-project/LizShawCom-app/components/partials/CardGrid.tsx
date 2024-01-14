@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import Card, { CardProps } from './Card';
@@ -10,8 +10,9 @@ interface Props {
 }
 
 const Wrapper = styled.ul`
-  padding: 0;
-  margin: 0;
+  max-width: var(--max-width);
+  padding: 0 40px;
+  margin: 0 auto;
   list-style-type: none;
   width: 100%;
   animation: animateElement cubic-bezier(0.3, 0.45, 0.45, 0.95) 0.75s;
