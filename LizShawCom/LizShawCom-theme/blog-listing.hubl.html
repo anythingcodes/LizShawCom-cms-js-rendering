@@ -8,35 +8,28 @@
 {% extends "./layouts/base.hubl.html" %}
 
 {%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
+{%- for blog_post in blog_posts -%}
+  {# FIXME: Open request / make PR to include most of these options via GraphQL #}
+  {# Add passthrough props #}
+  {%- do blog_post.update({
+  "featured_image": resize_image_url(blog_post.featured_image, loop.first ? 1000 : 412),
+  "post_summary": blog_post.post_summary|striptags,
+  "width": loop.first ? 'large' : 'default'
+  })-%}
+{%- endfor -%}
 
 {% block body %}
 
-  {%- for blog_post in blog_posts -%}
-    {# FIXME: Open request / make PR to include most of these options via GraphQL #}
-    {# Add passthrough props #}
-    {%- do blog_post.update({
-    "featured_image": resize_image_url(blog_post.featured_image, loop.first ? 1000 : 412),
-    "post_summary": blog_post.post_summary|striptags,
-    "width": loop.first ? 'large' : 'default'
-    })-%}
-  {%- endfor -%}
-      {# TODO: Intro banner #}
-      {# FIXME: Open request / make PR to include tag slug via GraphQL #}
-  <section>
-  {# h1: margin-bottom: 40px; font-size: 120px; line-height: 1; #}
-    <h1 style="font-size: var(--fs-0); line-height: 1.1;">Hi, my name is Liz Shaw</h1>
-    {# p: style="margin-bottom: 0; font-size: 21px; line-height: 1.8;" #}
-    <p>I'm a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-  </section>
-  <hr />
 
-  <section>
-    <h2>Featured</h2>
-    <p>Featured posts here</p>
-  </section>
-  <hr />
+  {%- js_partial
+  path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Hero.tsx",
+  title="Hi, my name is Liz Shaw",
+  description="I'm a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
+  no_wrapper=True -%}
+
 
   {# Non-featured posts #}
+  {# FIXME: Open request / make PR to include tag slug via GraphQL #}
   {%- js_partial
     path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListing.tsx",
     postCollection="{{ blog_posts|tojson }}",
@@ -47,9 +40,6 @@
 
   {# TODO: Home (!topic and !blog_author) #}
   {# TODO: blog_author or topic #}
-
-
-  {%- set postImage = content.widgets.module_15341108961761208_post.body.image.src or content.widgets.module_15341108961761208.body.image.src or content.featured_image -%}
 
 
       {# TODO: Pagination #}

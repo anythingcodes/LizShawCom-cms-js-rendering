@@ -1,14 +1,16 @@
 :root {
+  --max-width: 1380px;
+  --container-max-width: 860px;
   --fs-0: clamp(6.4rem, 5.883rem + 7.83vw, 8.03rem);
   --fs-1: clamp(1.4rem, 0.883rem + 2.83vw, 3.03rem);
   --fs-2: clamp(1.2rem, 0.883rem + 1.58vw, 2.11rem);
+  --container-fs-2: clamp(1.05rem, 0.753rem + 1.43cqi, 1.96rem);
   --fs-3: clamp(1.1rem, 0.93rem + 0.33vw, 1.19rem);
   --fs-body: clamp(1.00rem, 0.93rem + 0.33vw, 1.19rem);
+  --container-fs-body: clamp(1.00rem, 0.93rem + 0.33cqi, 1.19rem);
   --fs-4: clamp(0.9rem, 0.83rem + 0.23vw, 1.09rem);
   --fs-5: clamp(0.8rem, 0.73rem + 0.13vw, 0.99rem);
   --fs-6: clamp(0.7rem, 0.63rem + 0.03vw, 0.89rem);
-  --container-fs-body: clamp(1.00rem, 0.93rem + 0.33cqi, 1.19rem);
-  --container-fs-2: clamp(1.05rem, 0.753rem + 1.43cqi, 1.96rem);
 }
 
 html,
