@@ -9,6 +9,13 @@
     {%- if page_meta.html_title or pageTitle -%}
       <title>{{ page_meta.html_title or pageTitle }}</title>
     {%- endif -%}
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Rubik&family=Philosopher&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&family=Philosopher&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&family=Philosopher&display=swap" />
+    </noscript>
+
     {%- if domain_settings.favicon_src -%}
       <link rel="shortcut icon" href="{{ domain_settings.favicon_src }}" />
     {%- endif -%}

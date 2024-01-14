@@ -8,15 +8,38 @@
 {% extends "./layouts/base.hubl.html" %}
 
 {%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
-{%- for blog_post in blog_posts -%}
-  {%- do blog_post.update({"featured_image": resize_image_url(blog_post.featured_image, 200) }) -%}
-{%- endfor -%}
 
 {% block body %}
 
+  {%- for blog_post in blog_posts -%}
+    {# FIXME: Open request / make PR to include most of these options via GraphQL #}
+    {# Add passthrough props #}
+    {%- do blog_post.update({
+    "featured_image": resize_image_url(blog_post.featured_image, loop.first ? 1000 : 412),
+    "post_summary": blog_post.post_summary|striptags,
+    "width": loop.first ? 'large' : 'default'
+    })-%}
+  {%- endfor -%}
+      {# TODO: Intro banner #}
+      {# FIXME: Open request / make PR to include tag slug via GraphQL #}
+  <section>
+    <h1 style="margin-bottom: 40px; font-size: 120px; line-height: 1;">Hi, my name is Liz Shaw</h1>
+    <p style="margin-bottom: 0; font-size: 21px; line-height: 1.8;">I'm a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+  </section>
+  <hr />
+
+  <section>
+    <h2>Featured</h2>
+    <p>Featured posts here</p>
+  </section>
+  <hr />
+
+  {# Non-featured posts #}
   {%- js_partial
     path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListing.tsx",
-    postCollection="{{ blog_posts|tojson }}"
+    postCollection="{{ blog_posts|tojson }}",
+    tagCollection="{{ contents_tags|tojson }}",
+    absoluteUrl="{{ content.absolute_url }}",
     no_wrapper=True
   -%}
 

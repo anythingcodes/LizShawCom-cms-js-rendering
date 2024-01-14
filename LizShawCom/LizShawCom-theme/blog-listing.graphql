@@ -1,12 +1,16 @@
-query BlogListingQuery {
+query RecentBlogPostsQuery {
   BLOG {
     post_collection(filter: {content_group_id__eq: "152508306949", state__eq: "published"}) {
       items {
         html_title
+        post_summary
+        post_body
         featured_image
         featured_image_alt_text
-        post_summary
         url
+        blog_tags {
+          name
+        }
       }
     }
   }
