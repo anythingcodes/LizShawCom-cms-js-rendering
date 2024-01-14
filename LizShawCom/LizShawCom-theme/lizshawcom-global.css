@@ -1,11 +1,14 @@
 :root {
+  --fs-0: clamp(6.4rem, 5.883rem + 7.83vw, 8.03rem);
   --fs-1: clamp(1.4rem, 0.883rem + 2.83vw, 3.03rem);
   --fs-2: clamp(1.2rem, 0.883rem + 1.58vw, 2.11rem);
-  --fs-3: clamp(1.00rem, 0.93rem + 0.33vw, 1.19rem);
+  --fs-3: clamp(1.1rem, 0.93rem + 0.33vw, 1.19rem);
+  --fs-body: clamp(1.00rem, 0.93rem + 0.33vw, 1.19rem);
   --fs-4: clamp(0.9rem, 0.83rem + 0.23vw, 1.09rem);
   --fs-5: clamp(0.8rem, 0.73rem + 0.13vw, 0.99rem);
   --fs-6: clamp(0.7rem, 0.63rem + 0.03vw, 0.89rem);
-  --container-fs-3: clamp(1.00rem, 0.93rem + 0.33cqi, 1.19rem);
+  --container-fs-body: clamp(1.00rem, 0.93rem + 0.33cqi, 1.19rem);
+  --container-fs-2: clamp(1.05rem, 0.753rem + 1.43cqi, 1.96rem);
 }
 
 html,
@@ -119,14 +122,13 @@ section {
 }
 
 html {
-  line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-size: var(--fs-3);
+  font-size: var(--fs-body);
   font-family: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
-  line-height: 1;
+  line-height: 1.25;
   word-break: break-word;
   color: #070e19;
   background-color: #fff;
@@ -158,13 +160,11 @@ iframe,
 object {
   max-width: 100%; }
 
-
-body,
 input,
 button,
 select {
   font-family: "Rubik",Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: var(--fs-3);
+  font-size: var(--fs-body);
 }
 
 p {
@@ -179,13 +179,11 @@ h1,h2,h3,h4,h5,h6 {
   margin-bottom: 0.25em;
   font-family: "Philosopher",Helvetica Neue,Helvetica,Arial,sans-serif;
   font-weight: 700;
-  line-height: 1.5em;
   letter-spacing: normal;
-  color: #070e19;
 }
 
 h1 {
-  font-size: var(--fs-1); }
+  font-size: var(--fs-1);}
 
 h2 {
 	font-size: var(--fs-2);

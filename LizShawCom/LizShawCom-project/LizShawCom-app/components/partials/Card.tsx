@@ -107,11 +107,15 @@ const Tags = styled.div`
 `;
 
 const H3 = styled.h3`
-  font-size: var(--container-fs-3);
+  font-size: var(--container-fs-2);
   margin-bottom: 0;
   a {
     color: #fff;
   }
+`;
+
+const Summary = styled.p`
+  font-size: var(--container-fs-body);
 `;
 
 const addTagSlug = (
@@ -163,7 +167,7 @@ const Card = ({
               {title}
             </a>
           </H3>
-          <p>{summary}</p>
+          <Summary>{summary}</Summary>
         </Content>
       </Inner>
     </LI>

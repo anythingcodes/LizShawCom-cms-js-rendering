@@ -14,7 +14,7 @@ export interface TagWithSlug extends TagGraphQLResponse {
 const A = styled.a<{ $color: TagWithSlug['color'] }>`
   padding: 4px 12px;
   margin: 0 4px 4px 0;
-  font-size: 12px;
+  font-size: var(--fs-5);
   line-height: 1;
   font-weight: 500;
   border-radius: 30px;
@@ -34,13 +34,13 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
 
   &:hover,
   &:focus {
-    box-shadow: 0 0.5em 0.5em -0.4em #000;
+    box-shadow: 0 0.5em 0.5em -0.4em rgba(0, 0, 0, 0.4);
     transform: translateY(-0.25em);
   }
 `;
 
 const Tag = ({ color = 'purple', name, slug }: TagWithSlug) => (
-  <A $color={color} href={slug}>
+  <A $color={color} href={slug} title={name}>
     {name}
   </A>
 );

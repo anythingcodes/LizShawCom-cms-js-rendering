@@ -19,14 +19,11 @@ const Wrapper = styled.ul`
   animation-iteration-count: 1;
   transition: transform 0.15s;
   box-sizing: border-box; /* TODO: Needed? */
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 0 1 auto;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const CardGrid = ({ cards }: Props) => (
