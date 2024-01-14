@@ -10,7 +10,7 @@ interface Props {
 const Section = styled.section`
   max-width: var(--container-max-width);
   padding: 0 40px;
-  margin: 0 auto;
+  margin: 0 auto 80px auto;
 `;
 
 const H1 = styled.h1`
