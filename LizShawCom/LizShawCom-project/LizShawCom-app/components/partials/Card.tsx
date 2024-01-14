@@ -119,7 +119,6 @@ const Summary = styled.p`
 `;
 
 const addTagSlug = (
-  absoluteUrl: string,
   allTags: Array<TagWithSlug>,
   postTags: CardProps['blog_tags'] = [],
 ): Array<TagWithSlug> =>
@@ -127,7 +126,7 @@ const addTagSlug = (
     let slug = '';
     const matchingTag = allTags.find(({ name }) => name === postTag.name);
     if (matchingTag && matchingTag.slug) {
-      slug = `${absoluteUrl}/tag/${matchingTag.slug}`;
+      slug = `/tag/${matchingTag.slug}`;
     }
     return { ...postTag, slug };
   });
@@ -142,8 +141,8 @@ const Card = ({
   url,
   width = 'default',
 }: CardProps) => {
-  const { absoluteUrl, allTags } = useContext(BlogListingContext);
-  const computedTags = addTagSlug(absoluteUrl, allTags, cardTags);
+  const { allTags } = useContext(BlogListingContext);
+  const computedTags = addTagSlug(allTags, cardTags);
 
   return (
     <LI data-width={width} $width={width}>

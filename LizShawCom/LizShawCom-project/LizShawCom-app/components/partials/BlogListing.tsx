@@ -6,20 +6,18 @@ import type { TagWithSlug } from './Tag';
 import { BlogListingContextProvider } from './BlogListingContext';
 
 interface Props {
-  /** Passed down from blog.absolute_url via js_partial */
-  absoluteUrl: string;
   /** All posts from this blog listing query. */
   postCollection: string;
   /** All tags applicable to this blog listing view. */
   tagCollection: string;
 }
 
-const BlogListing = ({ absoluteUrl, postCollection, tagCollection }: Props) => {
+const BlogListing = ({ postCollection, tagCollection }: Props) => {
   const cards: Array<CardProps> = JSON.parse(postCollection);
   const allTags: Array<TagWithSlug> = JSON.parse(tagCollection);
   return (
     <StyledComponentsRegistry>
-      <BlogListingContextProvider value={{ absoluteUrl, allTags }}>
+      <BlogListingContextProvider value={{ allTags }}>
         {/* TODO: Localize heading */}
         <h2>Recent Posts</h2>
         <CardGrid cards={cards} />
