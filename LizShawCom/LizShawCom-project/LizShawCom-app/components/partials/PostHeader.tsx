@@ -95,7 +95,7 @@ const PostHeader = ({
         <Column>
           <Tags>
             {tags.map(({ name, slug }) => (
-              <Tag slug={slug} name={name} />
+              <Tag slug={`/tag/${slug}`} name={name} />
             ))}
           </Tags>
           <h1>{title}</h1>
