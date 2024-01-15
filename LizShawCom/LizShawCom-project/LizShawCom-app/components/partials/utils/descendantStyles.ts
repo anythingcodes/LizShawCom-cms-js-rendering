@@ -43,7 +43,7 @@ export default css`
       margin-bottom: var(--bottom-margin-desktop);
     }
   }
-  /*pre {
+  pre {
     overflow: auto;
     font-family: source-code-pro, Menlo, Monaco, 'Courier New', Courier,
       monospace;
@@ -61,7 +61,7 @@ export default css`
       background: ${preBorderColor};
       border-top-right-radius: 9px;
     }
-  }*/
+  }
   a {
     font-weight: 600;
     border-bottom-color: #eeeff1;

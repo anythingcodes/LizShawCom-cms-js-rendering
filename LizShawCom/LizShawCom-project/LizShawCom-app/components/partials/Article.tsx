@@ -1,9 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import PrismWrapper from '../islands/PrismWrapper?island';
-import { Island } from '@hubspot/cms-components';
-import descendantStyles from './utils/descendantStyles';
+import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import animation from './utils/animateElement';
+import descendantStyles from './utils/descendantStyles';
 
 interface Props {
   /** The post body with break tags stripped. */
@@ -12,6 +11,7 @@ interface Props {
 
 const Wrapper = styled.article`
   ${animation}
+  transition: transform 0.15s;
   max-width: var(--article-max-width);
   padding: 0 var(--gutter-mobile);
   margin: 0 auto var(--bottom-margin-default) auto;
@@ -22,17 +22,10 @@ const Wrapper = styled.article`
   ${descendantStyles}
 `;
 
-export type ArticleComponent = typeof Wrapper;
-
-const Article = ({ html }: Props) => {
-  return (
-    <Island
-      hydrateOn="visible"
-      module={PrismWrapper}
-      html={html}
-      ArticleComponent={Wrapper}
-    />
-  );
-};
+const Article = ({ html }: Props) => (
+  <StyledComponentsRegistry>
+    <Wrapper dangerouslySetInnerHTML={{ __html: html }} />
+  </StyledComponentsRegistry>
+);
 
 export default Article;
