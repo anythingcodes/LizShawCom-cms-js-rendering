@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { accentColors, hexToRGBA } from './utils/colors';
 
 export type OverlayColor = 'purple' | 'pink' | 'blue' | 'orange';
 
@@ -17,14 +18,8 @@ const Div = styled.div<{ $color: Props['color'] }>`
   background: rgba(7, 14, 25, 0.4);
   background: linear-gradient(
     ${({ $color }) => {
-      if ($color === 'pink') {
-        return 'rgba(222, 61, 119, 0), rgb(222, 61, 119)';
-      } else if ($color === 'blue') {
-        return 'rgba(41, 134, 219, 0), rgb(41, 134, 219)';
-      } else if ($color === 'orange') {
-        return 'rgba(223, 112, 35, 0), rgb(223, 112, 35)';
-      }
-      return 'rgba(97, 35, 228, 0), rgb(97, 35, 228)';
+      const hex = accentColors[$color];
+      return `${hexToRGBA(hex, 0)}, ${hex}`;
     }}
   );
 `;

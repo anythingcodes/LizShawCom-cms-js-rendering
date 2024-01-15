@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { OverlayColor } from './CardOverlay';
+import { accentColors } from './utils/colors';
 
 export interface TagGraphQLResponse {
   name: string;
@@ -13,6 +14,8 @@ export interface TagWithSlug extends TagGraphQLResponse {
 
 export const featuredTagName = 'Featured';
 
+const defaultColor = 'purple';
+
 const A = styled.a<{ $color: TagWithSlug['color'] }>`
   display: inline-block;
   padding: 4px 12px;
@@ -24,17 +27,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
   color: #fff;
   transition: 0.25s;
   pointer-events: all;
-  background-color: ${({ $color }) => {
-    if ($color === 'pink') {
-      return '#de3d77';
-    } else if ($color === 'blue') {
-      return '#2986db';
-    } else if ($color === 'orange') {
-      return '#df7023';
-    }
-    return '#6123e4'; /* purple default */
-  }};
-
+  background-color: ${({ $color = defaultColor }) => accentColors[$color]};
   &:hover,
   &:focus {
     box-shadow: 0 0.5em 0.5em -0.4em rgba(0, 0, 0, 0.25);
@@ -42,7 +35,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
   }
 `;
 
-const Tag = ({ color = 'purple', name, slug }: TagWithSlug) => (
+const Tag = ({ color = defaultColor, name, slug }: TagWithSlug) => (
   <A $color={color} href={slug} data-color={color}>
     {name}
   </A>
