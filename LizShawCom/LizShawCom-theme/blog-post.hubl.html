@@ -9,9 +9,10 @@
 {% block body %}
 
   {# INDIVIDUAL POST #}
-    {%- choice "layout" label='Choose image placement', value='Right', choices='Left, Right, Center' export_to_template_context=True -%}
+    {%- choice "image_placement" label='Choose image placement', value='Right', choices='Left, Right, Center' export_to_template_context=True -%}
     {%- js_partial
       path="@projects/LizShawCom-project/LizShawCom-app/components/partials/PostHeader.tsx",
+      imagePlacement="{{ widget_data.image_placement.value|lower }}",
       title="{{ content.name|striptags }}",
       image="{{ content.featured_image or '' }}",
       imageAlt="{{ content.featured_image_alt }}",

@@ -1,6 +1,7 @@
 :root {
   --max-width: 1380px;
   --container-max-width: 860px;
+  --article-max-width: 720px;
   --fs-0: clamp(6.4rem, 5.883rem + 7.83vw, 8.03rem);
   --fs-1: clamp(1.4rem, 0.883rem + 2.83vw, 3.03rem);
   --fs-2: clamp(1.2rem, 0.883rem + 1.58vw, 2.11rem);
