@@ -37,7 +37,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
 
   &:hover,
   &:focus {
-    box-shadow: 0 0.5em 0.5em -0.4em rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.5em 0.5em -0.4em rgba(0, 0, 0, 0.25);
     transform: translateY(-0.25em);
   }
 `;
