@@ -6,7 +6,6 @@ import Tag, { TagWithSlug } from './Tag';
 
 export interface CardProps {
   color: OverlayColor;
-  width?: 'default' | 'large';
   url: string;
   featured_image_alt_text?: string;
   featured_image: string;
@@ -15,7 +14,7 @@ export interface CardProps {
   blog_tags?: Array<TagWithSlug>; // TODO: Test URL with space, hyphenation, etc.
 }
 
-const LI = styled.li<{ $width: CardProps['width'] }>`
+const LI = styled.li<{ $isFeatured: boolean }>`
   color: #fff;
   min-height: 340px;
   margin-bottom: 32px;
@@ -24,14 +23,14 @@ const LI = styled.li<{ $width: CardProps['width'] }>`
 
   @media screen and (min-width: 400px) {
     & {
-      width: ${({ $width }) =>
-        $width === 'large' ? '100%' : 'calc(50% - 16px)'};
+      width: ${({ $isFeatured }) =>
+        $isFeatured ? '100%' : 'calc(50% - 16px)'};
     }
   }
   @media screen and (min-width: 768px) {
     & {
-      width: ${({ $width }) =>
-        $width === 'large' ? '100%' : 'calc(33.3333333333% - 16px)'};
+      width: ${({ $isFeatured }) =>
+        $isFeatured ? '100%' : 'calc(33.3333333333% - 16px)'};
     }
   }
   &::after {
@@ -132,6 +131,8 @@ const addTagSlug = (
     return { ...postTag, slug };
   });
 
+const featuredTagName = 'Featured';
+
 const Card = ({
   blog_tags: cardTags = [],
   color,
@@ -140,20 +141,23 @@ const Card = ({
   html_title: title,
   post_summary: summary,
   url,
-  width = 'default',
 }: CardProps) => {
   const { allTags } = useContext(BlogListingContext);
+  const isFeatured = cardTags.some(({ name }) => name === featuredTagName);
   const computedTags = addTagSlug(allTags, cardTags);
 
   return (
-    <LI data-width={width} $width={width}>
+    <LI $isFeatured={isFeatured}>
       <Inner>
         <Content>
           {computedTags.length > 0 && (
             <Tags>
-              {computedTags.map(({ name, slug }) => (
-                <Tag slug={slug} color={color} name={name} />
-              ))}
+              {computedTags.reduce<JSX.Element[]>((acc, { name, slug }) => {
+                if (name !== featuredTagName) {
+                  acc.push(<Tag slug={slug} color={color} name={name} />);
+                }
+                return acc;
+              }, [])}
             </Tags>
           )}
           <H3>
@@ -162,7 +166,7 @@ const Card = ({
           <Summary>{summary}</Summary>
         </Content>
         {/* TODO: Localize Featured text */}
-        {width === 'large' && <Featured>Featured</Featured>}
+        {isFeatured && <Featured>{featuredTagName}</Featured>}
         <ImageLink href={url}>
           <CardOverlay color={color} />
           <Img alt={imageAlt} src={imageSrc} loading="lazy" />
