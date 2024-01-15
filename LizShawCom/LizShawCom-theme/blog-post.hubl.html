@@ -9,9 +9,7 @@
 {% block body %}
 
   {# INDIVIDUAL POST #}
-  {%- choice "theme" label='Choose theme', value='Bounded-Right', choices='Bounded-Right, Bounded-Right-Rainbow, Bounded-Left, Unbounded-Clear, Unbounded-Filled, Unbounded-Filled-Purple' export_to_template_context=True -%}
-    {%- boolean "include_term_sheet" label="Include term sheet", value='False', no_wrapper=True, export_to_template_context=True -%}
-    {%- image "custom_listing_image" label='Select a custom listing image', src='', export_to_template_context=True -%}
+    {%- choice "layout" label='Choose image placement', value='Right', choices='Left, Right, Center' export_to_template_context=True -%}
     {%- js_partial
       path="@projects/LizShawCom-project/LizShawCom-app/components/partials/PostHeader.tsx",
       title="{{ content.name|striptags }}",
@@ -25,29 +23,9 @@
       no_wrapper=True
     -%}
     {%- set indivPostTitle = content.name|striptags -%}
-    <main class="wrapper post">
-      <section class="post__meta">
-        <div id="hubspot-author_data" class="hubspot-editable post__author" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
-          {%- if content.blog_post_author.avatar -%}
-            <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}" class="post__author-avatar">
-              <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ resize_image_url(content.blog_post_author.avatar, 70) }}" alt="Photo of {{ content.blog_post_author.display_name }}" />
-            </a>
-          {%- endif -%}
-          <div class="post__author-meta">
-            Written by <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a> on {{ content.publish_date_localized }}
-            <div class="post__author-meta-comments">
-              {%- if useComments -%}
-                {%- set comments_number =  content.comment_list|length -%}
-                {%- set comments_label = "comment" if comments_number == 1 else "comments" -%}
-                {{ comments_number }} {{ comments_label }} &nbsp; | &nbsp;<a href="{{content.absolute_url}}#comments-listing">Add a comment</a>
-              {%- endif -%}
-            </div>
 
-          </div>
-        </div>
-      </section>
 
-      <article class="post__article">
+      <article>
         {{ content.post_body|cut('<br>')|cut('<br />')|cut('<br/>') }}
       </article>
 
@@ -71,5 +49,4 @@
           {% endfor %}
         </p>
       {%- endif -%}
-    </main>
 {% endblock body %}
