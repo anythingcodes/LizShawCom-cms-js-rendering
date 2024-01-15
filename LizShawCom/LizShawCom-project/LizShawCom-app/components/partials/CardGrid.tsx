@@ -7,6 +7,8 @@ import type { OverlayColor } from './CardOverlay';
 interface Props {
   /** Grid children */
   cards: Array<CardProps>;
+  /** Title of this section */
+  'aria-description': string;
 }
 
 const Wrapper = styled.ul`
@@ -27,9 +29,9 @@ const Wrapper = styled.ul`
   justify-content: space-between;
 `;
 
-const CardGrid = ({ cards }: Props) => (
+const CardGrid = ({ cards, 'aria-description': ariaDescription }: Props) => (
   <StyledComponentsRegistry>
-    <Wrapper>
+    <Wrapper aria-description={ariaDescription}>
       {cards.map((cardProps, i) => {
         let color: OverlayColor = 'purple';
         if ((i + 1) % 4 === 0) {

@@ -40,7 +40,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
 `;
 
 const Tag = ({ color = 'purple', name, slug }: TagWithSlug) => (
-  <A $color={color} href={slug} title={name}>
+  <A $color={color} href={slug}>
     {name}
   </A>
 );

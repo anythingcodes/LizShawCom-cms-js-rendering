@@ -52,6 +52,7 @@ const Inner = styled.div`
   height: 100%;
   border-radius: 16px;
   overflow: hidden;
+  flex-direction: row-reverse;
 `;
 
 const Featured = styled.span`
@@ -147,12 +148,6 @@ const Card = ({
   return (
     <LI data-width={width} $width={width}>
       <Inner>
-        {/* TODO: Localize Featured text */}
-        {width === 'large' && <Featured>Featured</Featured>}
-        <ImageLink href={url} title={title}>
-          <CardOverlay color={color} />
-          <Img alt={imageAlt} src={imageSrc} loading="lazy" />
-        </ImageLink>
         <Content>
           {computedTags.length > 0 && (
             <Tags>
@@ -162,12 +157,16 @@ const Card = ({
             </Tags>
           )}
           <H3>
-            <a href={url} title={title}>
-              {title}
-            </a>
+            <a href={url}>{title}</a>
           </H3>
           <Summary>{summary}</Summary>
         </Content>
+        {/* TODO: Localize Featured text */}
+        {width === 'large' && <Featured>Featured</Featured>}
+        <ImageLink href={url}>
+          <CardOverlay color={color} />
+          <Img alt={imageAlt} src={imageSrc} loading="lazy" />
+        </ImageLink>
       </Inner>
     </LI>
   );
