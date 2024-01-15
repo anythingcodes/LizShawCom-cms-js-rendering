@@ -118,6 +118,27 @@ nav,
 section {
   display: block; }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.sr-only:focus {
+  position: relative;
+  width: auto;
+  height: auto;
+  clip: initial;
+  margin: inherit;
+  padding: inherit;
+  border: initial;
+}
+
 @keyframes animateElement {
   0% {
     transform: translate(0px, 50px);

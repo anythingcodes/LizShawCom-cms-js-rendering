@@ -1,6 +1,8 @@
 <!--
   templateType: none
 -->
+
+{%- set main_content_id = 'main' -%}
 <!DOCTYPE html>
 <html lang="{{ html_lang }}" {{ html_lang_dir }}>
   <head>
@@ -27,6 +29,8 @@
     {{ standard_header_includes }}
   </head>
   <body class="{{ builtin_body_classes }}">
+
+  <a class="sr-only" href="#{{main_content_id}}">Skip to main content</a>
 
   {# SITE COVER BG #}
   {%- js_partial path="@projects/LizShawCom-project/LizShawCom-app/components/partials/SiteCover.tsx", no_wrapper=True -%}
@@ -63,9 +67,10 @@
 
   {%- endblock header -%}
 
-    {# <main> rendered in listing and post templates #}
-    {%- block body -%}
-    {%- endblock body -%}
+    <main id="{{main_content_id}}">
+      {%- block body -%}
+      {%- endblock body -%}
+    </main>
 
     {%- block footer -%}
       {%- js_partial
