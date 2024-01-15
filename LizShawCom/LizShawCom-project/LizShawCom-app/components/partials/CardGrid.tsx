@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import Card, { CardProps } from './Card';
 import type { OverlayColor } from './CardOverlay';
+import animation from './utils/animateElement';
 
 interface Props {
   /** Grid children */
@@ -12,14 +13,12 @@ interface Props {
 }
 
 const Wrapper = styled.ul`
+  ${animation}
   max-width: var(--max-width);
   padding: 0 40px;
   margin: 0 auto;
   list-style-type: none;
   width: 100%;
-  animation: animateElement cubic-bezier(0.3, 0.45, 0.45, 0.95) 0.75s;
-  animation-duration: 0.5s;
-  animation-iteration-count: 1;
   transition: transform 0.15s;
   box-sizing: border-box; /* TODO: Needed? */
   display: flex;

@@ -8,29 +8,36 @@
 
 {% block body %}
 
-  {# INDIVIDUAL POST #}
-    {%- choice "image_placement" label='Choose image placement', value='Right', choices='Left, Right, Center' export_to_template_context=True -%}
+  {# Image placement var #}
+  {%- choice "image_placement" label='Choose image placement', value='Right', choices='Left, Right, Center' export_to_template_context=True -%}
+
+  {# Header with title, image and other meta data #}
+  {%- js_partial
+    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/PostHeader.tsx",
+    imagePlacement="{{ widget_data.image_placement.value|lower }}",
+    title="{{ content.name|striptags }}",
+    image="{{ content.featured_image or '' }}",
+    imageAlt="{{ content.featured_image_alt }}",
+    authorDisplayName="{{ content.blog_author.display_name }}",
+    authorSlug="{{ content.blog_author.slug }}",
+    publishDate="{{ content.publish_date_localized }}",
+    topic_list="{{ content.topic_list|tojson }}",
+    publishedUrl="{{ content.published_url }}",
+    no_wrapper=True
+  -%}
+
+  {# Article #}
+  {%- if bundle_request.inpageEditorUI -%}
+    {# Using content.post_body in the page editor allows users to edit #}
+    {# TODO: Add this to a blog post of little-known HubL tips and tricks, plus some Jinja stuff #}
+    {{ content.post_body }}
+  {%- else -%}
     {%- js_partial
-      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/PostHeader.tsx",
-      imagePlacement="{{ widget_data.image_placement.value|lower }}",
-      title="{{ content.name|striptags }}",
-      image="{{ content.featured_image or '' }}",
-      imageAlt="{{ content.featured_image_alt }}",
-      authorDisplayName="{{ content.blog_author.display_name }}",
-      authorSlug="{{ content.blog_author.slug }}",
-      publishDate="{{ content.publish_date_localized }}",
-      topic_list="{{ content.topic_list|tojson }}",
-      publishedUrl="{{ content.published_url }}",
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Article.tsx",
+      html="{{ content.post_body_rss|cut('<br>')|cut('<br />')|cut('<br/>') }}",
       no_wrapper=True
     -%}
-    {%- set indivPostTitle = content.name|striptags -%}
-
-
-      <article>
-        {{ content.post_body|cut('<br>')|cut('<br />')|cut('<br/>') }}
-      </article>
-
-
+  {%- endif -%}
 
       <h3 class="post__centered-heading">Further Reading</h3>
       <aside class="cards" data-variant="related" role="supplemental">

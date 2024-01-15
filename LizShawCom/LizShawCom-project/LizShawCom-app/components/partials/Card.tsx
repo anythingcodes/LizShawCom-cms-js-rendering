@@ -18,7 +18,7 @@ export interface CardProps {
 const LI = styled.li<{ $isFeatured: boolean }>`
   color: #fff;
   min-height: 340px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   will-change: transform;
   transition: transform 0.2s;
 

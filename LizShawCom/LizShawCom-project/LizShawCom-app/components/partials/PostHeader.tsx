@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import Tag, { type TagWithSlug } from './Tag';
+import animation from './utils/animateElement';
 
 interface Props {
   authorDisplayName: string;
@@ -17,20 +18,11 @@ interface Props {
 }
 
 const Wrapper = styled.div<{ $imagePlacement: Props['imagePlacement'] }>`
-  margin: 0 auto;
-  ${({ $imagePlacement }) => {
-    if ($imagePlacement === 'center') {
-      return `
-      ${Column}:first-child {
-        margin-bottom: 32px;
-      }
-      `;
-    }
-    return null;
-  }}
+  margin: 0 auto var(--bottom-margin-default) auto;
   max-width: var(--max-width);
   padding: 0 var(--gutter-mobile);
   @media screen and (min-width: 768px) {
+    margin-bottom: var(--bottom-margin-desktop);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +36,7 @@ const Wrapper = styled.div<{ $imagePlacement: Props['imagePlacement'] }>`
           flex-direction: column;
           ${Column}:first-child {
             max-width: var(--article-max-width);
-            margin: 0 auto 60px;
+            margin: 0 auto var(--bottom-margin-default);
           }
           ${Column}:last-child {
             width: 100%;
@@ -84,6 +76,8 @@ const Time = styled.time`
 `;
 
 const ImgWrapper = styled.div`
+  ${animation}
+  transition: transform 0.15s;
   position: relative;
   transform: translate(0);
   min-height: 280px;
