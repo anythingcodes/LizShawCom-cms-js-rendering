@@ -19,20 +19,23 @@ export interface CardProps {
 const LI = styled.li<{ $width: CardProps['width'] }>`
   color: #fff;
   min-height: 340px;
-  margin-bottom: 16px;
   will-change: transform;
   transition: transform 0.2s;
 
   @media screen and (min-width: 400px) {
     & {
-      width: ${({ $width }) =>
-        $width === 'wide' ? '100%' : 'calc(50% - 16px)'};
+      flex: ${({ $width }) =>
+        $width === 'wide'
+          ? '1 0 100%'
+          : '1 0 calc(50% - var(--bottom-margin-default))'};
     }
   }
   @media screen and (min-width: 768px) {
     & {
-      width: ${({ $width }) =>
-        $width === 'wide' ? '100%' : 'calc(33.3333333333% - 16px)'};
+      flex: ${({ $width }) =>
+        $width === 'wide'
+          ? '1 0 100%'
+          : '1 0 calc(33.3333333333% - var(--bottom-margin-default))'};
     }
   }
   &::after {

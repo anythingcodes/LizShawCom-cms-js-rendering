@@ -25,7 +25,8 @@ const Wrapper = styled.ul`
   flex-wrap: wrap;
   flex: 0 1 auto;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
+  gap: var(--bottom-margin-default);
 `;
 
 const CardGrid = ({ cards, 'aria-description': ariaDescription }: Props) => (
