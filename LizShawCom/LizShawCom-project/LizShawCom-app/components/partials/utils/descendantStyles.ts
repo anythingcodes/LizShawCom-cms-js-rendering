@@ -47,7 +47,7 @@ export default css`
     overflow: auto;
     font-family: source-code-pro, Menlo, Monaco, 'Courier New', Courier,
       monospace;
-    background: #f2f2f2;
+    background: ${accentColors.grey};
     font-size: var(--fs-4);
     border-left: 10px solid ${preBorderColor};
     border-radius: 5px;
@@ -88,7 +88,7 @@ export default css`
     border-color: #eeeff1;
     border-collapse: collapse;
     tr {
-      background-color: #f0f0f0;
+      background-color: ${accentColors.grey};
       &:nth-child(even) {
         background-color: transparent;
       }
@@ -100,9 +100,31 @@ export default css`
     th {
       padding: 10px;
       text-align: left;
-      border: 1px solid #f0f0f0;
+      border: 1px solid ${accentColors.grey};
       font-weight: 700;
-      background-color: #f0f0f0;
+      background-color: ${accentColors.grey};
+    }
+  }
+  img {
+    & + em {
+      display: block;
+      margin-top: 12px;
+      font-size: var(--fs-5);
+      line-height: 2;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+      @media screen and (min-width: 768px) {
+        margin-top: 20px;
+      }
+    }
+    &.wide {
+      display: block;
+      width: 100vw;
+      max-width: none;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0;
     }
   }
   blockquote {

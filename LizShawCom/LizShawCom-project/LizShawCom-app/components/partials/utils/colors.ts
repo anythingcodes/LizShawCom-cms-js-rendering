@@ -1,10 +1,9 @@
-import { css } from 'styled-components';
-
 export const accentColors = {
   pink: '#de3d77',
   blue: '#2986db',
   orange: '#df7023',
   purple: '#6123e4',
+  grey: '#f0f0f0',
 } as const;
 
 /**

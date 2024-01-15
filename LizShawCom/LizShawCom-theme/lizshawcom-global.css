@@ -155,6 +155,7 @@ body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }/* TODO: Dark mode */
 
 blockquote,
@@ -179,7 +180,7 @@ img,
 video,
 iframe,
 object {
-  max-width: 100%; }
+  max-width: 100%; height: auto; }
 
 input,
 button,
