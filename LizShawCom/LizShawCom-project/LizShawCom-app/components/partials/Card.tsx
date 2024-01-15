@@ -13,9 +13,10 @@ export interface CardProps {
   post_summary: string;
   html_title: string;
   blog_tags?: Array<TagWithSlug>; // TODO: Test URL with space, hyphenation, etc.
+  width: 'default' | 'wide';
 }
 
-const LI = styled.li<{ $isFeatured: boolean }>`
+const LI = styled.li<{ $width: CardProps['width'] }>`
   color: #fff;
   min-height: 340px;
   margin-bottom: 16px;
@@ -24,14 +25,14 @@ const LI = styled.li<{ $isFeatured: boolean }>`
 
   @media screen and (min-width: 400px) {
     & {
-      width: ${({ $isFeatured }) =>
-        $isFeatured ? '100%' : 'calc(50% - 16px)'};
+      width: ${({ $width }) =>
+        $width === 'wide' ? '100%' : 'calc(50% - 16px)'};
     }
   }
   @media screen and (min-width: 768px) {
     & {
-      width: ${({ $isFeatured }) =>
-        $isFeatured ? '100%' : 'calc(33.3333333333% - 16px)'};
+      width: ${({ $width }) =>
+        $width === 'wide' ? '100%' : 'calc(33.3333333333% - 16px)'};
     }
   }
   &::after {
@@ -127,13 +128,14 @@ const Card = ({
   html_title: title,
   post_summary: summary,
   url,
+  width,
 }: CardProps) => {
   const { allTags } = useContext(BlogListingContext);
   const isFeatured = cardTags.some(({ name }) => name === featuredTagName);
   const computedTags = addTagSlug(allTags, cardTags);
 
   return (
-    <LI $isFeatured={isFeatured}>
+    <LI $width={width}>
       <Inner>
         <Content>
           {computedTags.length > 0 && (

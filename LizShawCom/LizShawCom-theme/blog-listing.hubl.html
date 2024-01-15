@@ -13,7 +13,8 @@
   {# Add passthrough props #}
   {%- do blog_post.update({
   "featured_image": resize_image_url(blog_post.featured_image, loop.first ? 1000 : 412),
-  "post_summary": blog_post.post_summary|striptags
+  "post_summary": blog_post.post_summary|striptags,
+  "width": loop.first ? "wide" : "default"
   })-%}
 {%- endfor -%}
 
