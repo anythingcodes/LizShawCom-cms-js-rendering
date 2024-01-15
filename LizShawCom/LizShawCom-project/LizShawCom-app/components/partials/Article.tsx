@@ -11,7 +11,6 @@ interface Props {
 
 const Wrapper = styled.article`
   ${animation}
-  transition: transform 0.15s;
   max-width: var(--article-max-width);
   padding: 0 var(--gutter-mobile);
   margin: 0 auto var(--bottom-margin-default) auto;
