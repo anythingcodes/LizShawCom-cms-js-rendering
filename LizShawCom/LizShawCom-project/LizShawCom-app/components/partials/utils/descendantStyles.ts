@@ -45,10 +45,14 @@ export default css`
   hr {
     position: relative;
     width: 100%;
-    height: 1px;
-    margin: 60px 0;
+    height: 2px;
+    margin: var(--bottom-margin-default) 0;
     font-size: 21px;
     border: 0;
+    @media screen and (min-width: 768px) {
+      margin-top: var(--bottom-margin-desktop);
+      margin-bottom: var(--bottom-margin-desktop);
+    }
     &::before {
       content: '. . .';
       position: absolute;

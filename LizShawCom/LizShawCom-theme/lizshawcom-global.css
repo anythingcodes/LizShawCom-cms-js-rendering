@@ -6,7 +6,7 @@
   --fs-1: clamp(1.4rem, 0.883rem + 2.83vw, 3.03rem);
   --fs-2: clamp(1.2rem, 0.883rem + 1.58vw, 2.11rem);
   --container-fs-2: clamp(1.05rem, 0.753rem + 1.43cqi, 1.96rem);
-  --fs-3: clamp(1.1rem, 0.93rem + 0.33vw, 1.19rem);
+  --fs-3: clamp(1.15rem, 0.98rem + 0.38vw, 1.24rem);
   --fs-body: clamp(1.00rem, 0.93rem + 0.33vw, 1.19rem);
   --container-fs-body: clamp(0.9rem, 0.83rem + 0.23cqi, 1.09rem);
   --fs-4: clamp(0.9rem, 0.83rem + 0.23vw, 1.09rem);
