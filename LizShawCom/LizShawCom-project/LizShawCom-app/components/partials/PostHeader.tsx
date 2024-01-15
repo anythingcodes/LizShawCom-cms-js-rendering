@@ -51,6 +51,17 @@ const Column = styled.div`
   @media screen and (min-width: 768px) {
     width: calc(50% - 16px);
   }
+  &:first-child {
+    @media screen and (max-width: 767px) {
+      margin-bottom: var(--bottom-margin-default);
+    }
+  }
+`;
+
+const H1 = styled.h1`
+  @media screen and (max-width: 767px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const Tags = styled.div`
@@ -135,7 +146,7 @@ const PostHeader = ({
               />
             ))}
           </Tags>
-          <h1>{title}</h1>
+          <H1>{title}</H1>
           <Meta>
             <a href={`/author/${authorSlug}`}>{authorDisplayName}</a>
             <Time dateTime={publishDate}>{computedDate}</Time>

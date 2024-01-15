@@ -1,4 +1,7 @@
 import { css } from 'styled-components';
+import { accentColors, hexToRGBA } from './colors';
+
+const preBorderColor = hexToRGBA(accentColors.blue, 0.6);
 
 /**
  * Styles applied to descendant elements in the blog post article. Essentially
@@ -32,27 +35,43 @@ export default css`
   ol li {
     margin-bottom: 10px;
   }
+  hr,
+  pre {
+    margin: var(--bottom-margin-default) 0;
+    @media screen and (min-width: 768px) {
+      margin-top: var(--bottom-margin-desktop);
+      margin-bottom: var(--bottom-margin-desktop);
+    }
+  }
   pre {
     overflow: auto;
-    padding: 15px;
-    margin-bottom: 0;
-    font-size: 14px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
-    font-family: monospace;
+    font-family: source-code-pro, Menlo, Monaco, 'Courier New', Courier,
+      monospace;
+    background: #f2f2f2;
+    font-size: var(--fs-4);
+    border-left: 10px solid ${preBorderColor};
+    border-radius: 5px;
+    padding: 20px;
+    font-weight: 600;
+    &::-webkit-scrollbar {
+      background-color: #ded7e6;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: ${preBorderColor};
+      border-top-right-radius: 9px;
+    }
+  }
+  input[type='file'] {
+    width: 100%;
   }
   hr {
     position: relative;
     width: 100%;
     height: 2px;
-    margin: var(--bottom-margin-default) 0;
     font-size: 21px;
     border: 0;
-    @media screen and (min-width: 768px) {
-      margin-top: var(--bottom-margin-desktop);
-      margin-bottom: var(--bottom-margin-desktop);
-    }
+
     &::before {
       content: '. . .';
       position: absolute;
