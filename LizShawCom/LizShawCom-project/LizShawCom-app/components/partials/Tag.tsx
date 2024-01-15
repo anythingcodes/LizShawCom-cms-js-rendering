@@ -28,7 +28,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
     if ($color === 'pink') {
       return '#de3d77';
     } else if ($color === 'blue') {
-      return '##2986db';
+      return '#2986db';
     } else if ($color === 'orange') {
       return '#df7023';
     }
@@ -43,7 +43,7 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
 `;
 
 const Tag = ({ color = 'purple', name, slug }: TagWithSlug) => (
-  <A $color={color} href={slug}>
+  <A $color={color} href={slug} data-color={color}>
     {name}
   </A>
 );
