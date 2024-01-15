@@ -11,7 +11,10 @@ export interface TagWithSlug extends TagGraphQLResponse {
   color?: OverlayColor;
 }
 
+export const featuredTagName = 'Featured';
+
 const A = styled.a<{ $color: TagWithSlug['color'] }>`
+  display: inline-block;
   padding: 4px 12px;
   margin: 0 4px 4px 0;
   font-size: var(--fs-5);

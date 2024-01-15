@@ -13,10 +13,15 @@
     {%- boolean "include_term_sheet" label="Include term sheet", value='False', no_wrapper=True, export_to_template_context=True -%}
     {%- image "custom_listing_image" label='Select a custom listing image', src='', export_to_template_context=True -%}
     {%- js_partial
-      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Banner.tsx",
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/PostHeader.tsx",
       title="{{ content.name|striptags }}",
-      subtitle="{{ content.meta_description }}",
       image="{{ content.featured_image or '' }}",
+      imageAlt="{{ content.featured_image_alt }}",
+      authorDisplayName="{{ content.blog_author.display_name }}",
+      authorSlug="{{ content.blog_author.slug }}",
+      publishDate="{{ content.publish_date_localized }}",
+      topic_list="{{ content.topic_list|tojson }}",
+      publishedUrl="{{ content.published_url }}",
       no_wrapper=True
     -%}
     {%- set indivPostTitle = content.name|striptags -%}

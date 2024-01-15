@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { styled } from 'styled-components';
 import CardOverlay, { OverlayColor } from './CardOverlay';
 import { BlogListingContext } from './BlogListingContext';
-import Tag, { TagWithSlug } from './Tag';
+import Tag, { TagWithSlug, featuredTagName } from './Tag';
+import addTagSlug from './utils/addTagSlug';
 
 export interface CardProps {
   color: OverlayColor;
@@ -117,21 +118,6 @@ const H3 = styled.h3`
 const Summary = styled.p`
   font-size: var(--container-fs-body);
 `;
-
-const addTagSlug = (
-  allTags: Array<TagWithSlug>,
-  postTags: CardProps['blog_tags'] = [],
-): Array<TagWithSlug> =>
-  postTags.map((postTag) => {
-    let slug = '';
-    const matchingTag = allTags.find(({ name }) => name === postTag.name);
-    if (matchingTag && matchingTag.slug) {
-      slug = `/tag/${matchingTag.slug}`;
-    }
-    return { ...postTag, slug };
-  });
-
-const featuredTagName = 'Featured';
 
 const Card = ({
   blog_tags: cardTags = [],
