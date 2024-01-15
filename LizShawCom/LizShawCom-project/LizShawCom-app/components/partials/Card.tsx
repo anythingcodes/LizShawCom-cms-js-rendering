@@ -18,26 +18,24 @@ export interface CardProps {
 
 const LI = styled.li<{ $width: CardProps['width'] }>`
   color: #fff;
-  min-height: 340px;
   will-change: transform;
   transition: transform 0.2s;
+  width: 100%;
 
-  @media screen and (min-width: 400px) {
-    & {
-      flex: ${({ $width }) =>
-        $width === 'wide'
-          ? '1 0 100%'
-          : '1 0 calc(50% - var(--bottom-margin-default))'};
-    }
-  }
   @media screen and (min-width: 768px) {
-    & {
-      flex: ${({ $width }) =>
-        $width === 'wide'
-          ? '1 0 100%'
-          : '1 0 calc(33.3333333333% - var(--bottom-margin-default))'};
-    }
+    flex: ${({ $width }) =>
+      $width === 'wide'
+        ? '1 0 100%'
+        : '1 0 calc(50% - var(--bottom-margin-default))'};
   }
+
+  @media screen and (min-width: 1000px) {
+    flex: ${({ $width }) =>
+      $width === 'wide'
+        ? '1 0 100%'
+        : '1 0 calc(33.3333333333% - var(--bottom-margin-default))'};
+  }
+
   &::after {
     content: '';
     display: table;
@@ -113,7 +111,6 @@ const Tags = styled.div`
 
 const H3 = styled.h3`
   font-size: var(--container-fs-2);
-  margin-bottom: 0;
   a {
     color: #fff;
   }
@@ -121,6 +118,7 @@ const H3 = styled.h3`
 
 const Summary = styled.p`
   font-size: var(--container-fs-body);
+  margin-bottom: 0;
 `;
 
 const Card = ({

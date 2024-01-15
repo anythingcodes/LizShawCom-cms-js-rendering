@@ -15,7 +15,7 @@ interface Props {
 const Wrapper = styled.ul`
   ${animation}
   max-width: var(--max-width);
-  padding: 0 40px;
+  padding: 0 var(--gutter-mobile);
   margin: 0 auto;
   list-style-type: none;
   width: 100%;
@@ -27,6 +27,10 @@ const Wrapper = styled.ul`
   flex-direction: row;
   justify-content: start;
   gap: var(--bottom-margin-default);
+  @media screen and (min-width: 768px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 `;
 
 const CardGrid = ({ cards, 'aria-description': ariaDescription }: Props) => (
