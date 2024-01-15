@@ -26,7 +26,7 @@ export default css`
   ul,
   ol,
   dd {
-    margin-left: 16px;
+    margin-left: 20px;
   }
   ul li,
   ol li {
