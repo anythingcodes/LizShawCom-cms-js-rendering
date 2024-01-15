@@ -62,6 +62,10 @@ export default css`
       border-top-right-radius: 9px;
     }
   }
+  a {
+    font-weight: 600;
+    border-bottom-color: #eeeff1;
+  }
   input[type='file'] {
     width: 100%;
   }
@@ -106,6 +110,7 @@ export default css`
     }
   }
   img {
+    display: block;
     & + em {
       display: block;
       margin-top: 12px;
@@ -119,7 +124,6 @@ export default css`
       }
     }
     &.wide {
-      display: block;
       width: 100vw;
       max-width: none;
       margin-left: 50%;
