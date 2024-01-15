@@ -65,6 +65,9 @@ export default css`
   a {
     font-weight: 600;
     border-bottom-color: #eeeff1;
+    &:hover {
+      border-bottom-color: #642864;
+    }
   }
   input[type='file'] {
     width: 100%;
