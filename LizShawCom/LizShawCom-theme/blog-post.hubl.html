@@ -39,14 +39,6 @@
     -%}
   {%- endif -%}
 
-  {# Header with title, image and other meta data #}
-  {%- js_partial
-    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/ShareBar.tsx",
-    postUrl="{{ base_tag_href }}",
-    encodedTitle="{{ content.name|urlencode }}",
-    no_wrapper=True
-  -%}
-
       <h3 class="post__centered-heading">Further Reading</h3>
       <aside class="cards" data-variant="related" role="supplemental">
         {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCard %}
