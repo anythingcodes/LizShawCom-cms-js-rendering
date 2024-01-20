@@ -2,9 +2,9 @@ import { createContext } from 'react';
 import { TagWithSlug } from './Tag';
 
 const defaultContext: {
-  allTags: Array<TagWithSlug>;
+  allTags: Array<TagWithSlug> | null;
 } = {
-  allTags: [],
+  allTags: null,
 };
 
 export const BlogListingContext = createContext(defaultContext);

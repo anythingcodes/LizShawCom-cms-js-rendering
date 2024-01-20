@@ -15,7 +15,7 @@ export interface CardProps {
    * 'Featured', 'Previous', and 'Next' cards.
    */
   label?: string;
-  post_summary: string;
+  post_summary?: string;
   html_title: string;
   blog_tags?: Array<TagWithSlug>; // TODO: Test URL with space, hyphenation, etc.
   width?: 'default' | 'wide';
@@ -138,7 +138,10 @@ const Card = ({
   width = 'default',
 }: CardProps) => {
   const { allTags } = useContext(BlogListingContext);
-  const computedTags = addTagSlug(allTags, cardTags);
+  let computedTags = cardTags;
+  if (allTags) {
+    computedTags = addTagSlug(allTags, cardTags);
+  }
 
   return (
     <LI $width={width}>
@@ -157,7 +160,7 @@ const Card = ({
           <H3>
             <a href={url}>{title}</a>
           </H3>
-          <Summary>{summary}</Summary>
+          {summary && <Summary>{summary}</Summary>}
         </Content>
         {/* TODO: Localize Featured text */}
         {label && <Label>{label}</Label>}

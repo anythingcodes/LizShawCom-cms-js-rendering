@@ -19,8 +19,9 @@ const BlogListing = ({ postCollection, tagCollection }: Props) => {
     <StyledComponentsRegistry>
       <BlogListingContextProvider value={{ allTags }}>
         {/* TODO: Localize heading */}
-
-        <CardGrid cards={cards} ariaDescription="Recent Posts" />
+        <article>
+          <CardGrid cards={cards} screenReaderDescription="Recent Posts" />
+        </article>
       </BlogListingContextProvider>
     </StyledComponentsRegistry>
   );

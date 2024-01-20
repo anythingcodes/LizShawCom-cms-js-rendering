@@ -63,14 +63,35 @@
         blog_tags: []
     }
   ]|selectattr('html_title', 'defined') -%}
-  {%- js_partial
-    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/CardGrid.tsx",
-    ariaDescription="Related blog posts",
-    cards="{{ prev_next_posts|tojson }}",
-    maxWidth="800px",
-    aboveMobileGap="3%",
-    no_wrapper=True
+  <aside>
+    {%- js_partial
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/CardGrid.tsx",
+      aboveMobileGap="3%",
+      cards="{{ prev_next_posts|tojson }}",
+      maxWidth="800px",
+      screenReaderDescription="Previous and next blog posts",
+      no_wrapper=True
+    -%}
+  </aside>
+
+  {# Related post ("You may also like") #}
+  {%- set related_posts = blog_recent_tag_posts(content.content_group_id, content.tag_list|rejectattr('label', 'equalto', 'Featured'), 4, "OR")|rejectattr('slug', 'equalto', slug) -%}
+  {%- set related_post = related_posts|first -%}
+  {%- set related_tag = related_post.tagList|rejectattr('label', 'equalto', 'Featured')|first -%}
+  {%- if related_post -%}
+    {%- js_partial
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/RelatedPost.tsx",
+      featured_image="{{ related_post.featured_image }}",
+      featured_image_alt_text="{{ related_post.featured_image_alt_text || related_post.html_title  }}",
+      relatedTagLabel="{{ related_tag.label }}",
+      relatedTagSlug="{{ related_tag.slug }}",
+      tags="{{ related_post.tagList|tojson }}",
+      html_title="{{ related_post.html_title }}",
+      url="{{ related_post.slug }}",
+      post_summary="{{ related_post.post_summary|striptags }}",
+      no_wrapper=True
   -%}
+  {%- endif -%}
 
 
 {#

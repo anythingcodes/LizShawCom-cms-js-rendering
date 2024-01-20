@@ -4,20 +4,20 @@ import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import Card, { CardProps } from './Card';
 import type { OverlayColor } from './CardOverlay';
 import animation from './utils/animateElement';
-import { featuredTagName } from './Tag';
+import ScreenReaderOnly, { ScreenReaderOnlyProps } from './ScreenReaderOnly';
 
 interface Props {
-  /** Grid children, as an array of cards or JSON string to be parsed */
-  cards: Array<CardProps> | string;
-  /** Title of this section */
-  ariaDescription: string;
-  /** Optional max width */
-  maxWidth?: string;
   /** Optional gap above mobile */
   aboveMobileGap?: string;
+  /** Grid children, as an array of cards or JSON string to be parsed */
+  cards: Array<CardProps> | string;
+  /** Optional max width */
+  maxWidth?: string;
+  /** Title of this section provided to screen readers */
+  screenReaderDescription: string;
 }
 
-const Wrapper = styled.ul<{
+const UL = styled.ul<{
   $aboveMobileGap?: Props['aboveMobileGap'];
   $maxWidth?: Props['maxWidth'];
 }>`
@@ -45,20 +45,17 @@ const Wrapper = styled.ul<{
 
 const CardGrid = ({
   aboveMobileGap,
-  ariaDescription,
   cards: cardsProp,
   maxWidth,
+  screenReaderDescription,
 }: Props) => {
   const cards: Exclude<Props['cards'], string> =
     typeof cardsProp === 'string' ? JSON.parse(cardsProp as string) : cardsProp;
 
   return (
     <StyledComponentsRegistry>
-      <Wrapper
-        aria-description={ariaDescription}
-        $aboveMobileGap={aboveMobileGap}
-        $maxWidth={maxWidth}
-      >
+      <ScreenReaderOnly as="h2">{screenReaderDescription}</ScreenReaderOnly>
+      <UL $aboveMobileGap={aboveMobileGap} $maxWidth={maxWidth}>
         {cards.map((cardProps, i) => {
           let color: OverlayColor = 'purple';
           if ((i + 1) % 4 === 0) {
@@ -70,7 +67,7 @@ const CardGrid = ({
           }
           return <Card {...cardProps} color={color} />;
         })}
-      </Wrapper>
+      </UL>
     </StyledComponentsRegistry>
   );
 };
