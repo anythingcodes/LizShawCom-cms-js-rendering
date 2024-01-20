@@ -1,6 +1,11 @@
-query RecentBlogPostsQuery {
+# $contentGroupId: "{{ content_group.id }}"
+# $limit: "{{ topic ? 200 : contents.limit }}"
+# $offset: "{{ contents.offset }}"
+# $authorId: "{{ blog_author.id }}"
+
+query RecentBlogPostsQuery($authorId: String, $contentGroupId: String, $limit: Int, $offset: Int) {
   BLOG {
-    post_collection(filter: {content_group_id__eq: "152508306949", state__eq: "published"}) {
+    post_collection(filter: {blog_author_id__eq: $authorId, content_group_id__eq: $contentGroupId, state__eq: "published"}, limit: $limit, offset: $offset, orderBy: updated__desc) {
       items {
         html_title
         post_summary
@@ -10,6 +15,7 @@ query RecentBlogPostsQuery {
         url
         blog_tags {
           name
+          id
         }
       }
     }

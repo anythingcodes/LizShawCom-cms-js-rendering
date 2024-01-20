@@ -5,9 +5,16 @@
   label: LizShaw.com Blog Listing
   dataQueryPath: ./blog-listing.graphql
 -->
+
+
+{# TODO: Write post about passing offset, limit, etc. into GraphQL blog query#}
+
 {% extends "./layouts/base.hubl.html" %}
 
 {%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
+
+{# blog_author.id #}
+
 {%- for blog_post in blog_posts -%}
   {# FIXME: Open request / make PR to include most of these options via GraphQL #}
   {# Add passthrough props #}
@@ -21,25 +28,49 @@
 
 {% block body %}
 
-
-  {%- js_partial
-  path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Hero.tsx",
-  title="Hi, my name is Liz Shaw",
-  description="I'm a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
-  no_wrapper=True -%}
-
-
-  {# Non-featured posts #}
-  {# FIXME: Open request / make PR to include tag slug via GraphQL #}
-  {%- js_partial
-    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListing.tsx",
-    postCollection="{{ blog_posts|tojson }}",
-    tagCollection="{{ contents_tags|tojson }}",
-    no_wrapper=True
-  -%}
-
+  {%- set variant = (!topic and !blog_author) ? 'home' : (topic ? 'tag' : 'author') -%}
   {# TODO: Home (!topic and !blog_author) #}
   {# TODO: blog_author or topic #}
+
+  {%- if variant== 'home' -%}
+    {%- js_partial
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Hero.tsx",
+      title="Hi, my name is Liz Shaw",
+      description="I'm a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
+      no_wrapper=True -%}
+    {%- endif -%}
+
+    {% if variant == 'author' %}
+      {%- set title = "Posts by " ~ blog_author.label -%}
+        {%- js_partial
+        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Hero.tsx",
+        title="{{ title }}",
+        no_wrapper=True
+        -%}
+
+      {%- elif variant == 'tag' -%}
+        <h1>TODO: Tags</h1>
+        <h2>TODO: {{topic}}</h2>
+        {# TODO: Request or PR ability to filter via tag in GraphQL query #}
+        {%- set blog_posts_by_topic = [] -%}
+        {%- for post in blog_posts -%}
+          {%- set tagIds = post.blog_tags|map('id') -%}
+          {%- if tag_id in tagIds -%}
+            {%- do blog_posts_by_topic.append(post) -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- set blog_posts = blog_posts_by_topic -%}
+    {%- endif -%}
+
+    {# Blog Listing #}
+    {# FIXME: Open request / make PR to include tag slug via GraphQL #}
+    {%- js_partial
+      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListing.tsx",
+      postCollection="{{ blog_posts|tojson }}",
+      tagCollection="{{ contents_tags|tojson }}",
+      hasScreenReaderHeader={{ variant != 'tag' }},
+      no_wrapper=True
+    -%}
 
 
       {# TODO: Pagination #}

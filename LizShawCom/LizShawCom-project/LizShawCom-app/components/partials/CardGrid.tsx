@@ -11,6 +11,8 @@ interface Props {
   aboveMobileGap?: string;
   /** Grid children, as an array of cards or JSON string to be parsed */
   cards: Array<CardProps> | string;
+  /** Whether or not the screen reader header should render to the DOM. */
+  hasScreenReaderHeader?: boolean;
   /** Optional max width */
   maxWidth?: string;
   /** Title of this section provided to screen readers */
@@ -46,6 +48,7 @@ const UL = styled.ul<{
 const CardGrid = ({
   aboveMobileGap,
   cards: cardsProp,
+  hasScreenReaderHeader = true,
   maxWidth,
   screenReaderDescription,
 }: Props) => {
@@ -54,7 +57,9 @@ const CardGrid = ({
 
   return (
     <StyledComponentsRegistry>
-      <ScreenReaderOnly as="h2">{screenReaderDescription}</ScreenReaderOnly>
+      {hasScreenReaderHeader && (
+        <ScreenReaderOnly as="h2">{screenReaderDescription}</ScreenReaderOnly>
+      )}
       <UL $aboveMobileGap={aboveMobileGap} $maxWidth={maxWidth}>
         {cards.map((cardProps, i) => {
           let color: OverlayColor = 'purple';

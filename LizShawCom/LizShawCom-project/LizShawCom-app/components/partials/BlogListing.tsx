@@ -6,13 +6,19 @@ import type { TagWithSlug } from './Tag';
 import { BlogListingContextProvider } from './BlogListingContext';
 
 interface Props {
+  /** Whether or not the screen reader header should render to the DOM. */
+  hasScreenReaderHeader?: boolean;
   /** All posts from this blog listing query. */
   postCollection: string;
   /** All tags applicable to this blog listing view. */
   tagCollection: string;
 }
 
-const BlogListing = ({ postCollection, tagCollection }: Props) => {
+const BlogListing = ({
+  hasScreenReaderHeader = true,
+  postCollection,
+  tagCollection,
+}: Props) => {
   const cards: Array<CardProps> = JSON.parse(postCollection);
   const allTags: Array<TagWithSlug> = JSON.parse(tagCollection);
   return (
@@ -20,7 +26,11 @@ const BlogListing = ({ postCollection, tagCollection }: Props) => {
       <BlogListingContextProvider value={{ allTags }}>
         {/* TODO: Localize heading */}
         <article>
-          <CardGrid cards={cards} screenReaderDescription="Recent Posts" />
+          <CardGrid
+            cards={cards}
+            hasScreenReaderHeader={hasScreenReaderHeader}
+            screenReaderDescription="Recent Posts"
+          />
         </article>
       </BlogListingContextProvider>
     </StyledComponentsRegistry>
