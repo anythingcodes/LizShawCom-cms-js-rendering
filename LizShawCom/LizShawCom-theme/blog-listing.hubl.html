@@ -14,7 +14,8 @@
   {%- do blog_post.update({
   "featured_image": resize_image_url(blog_post.featured_image, loop.first ? 1000 : 412),
   "post_summary": blog_post.post_summary|striptags,
-  "width": loop.first ? "wide" : "default"
+  "width": loop.first ? "wide" : "default",
+  "label": blog_post.blog_tags|selectattr("name", "equalto", "Featured")|list|length > 0 ? 'Featured' : undefined,
   })-%}
 {%- endfor -%}
 

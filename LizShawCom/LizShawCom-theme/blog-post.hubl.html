@@ -4,6 +4,8 @@
   enableDomainStylesheets: true
   label: LizShaw.com Blog Post
 -->
+
+{# TODO: screenshotPath: ../images/template-previews/application-listing.png #}
 {% extends "./layouts/base.hubl.html" %}
 
 {% block body %}
@@ -39,6 +41,39 @@
     -%}
   {%- endif -%}
 
+
+ {# Previous/Next Posts #}
+ {%- set prev_next_posts = [
+    {
+        html_title: content.previous_post_name,
+        url: content.previous_post_slug,
+        featured_image: content.previous_post_featured_image,
+        featured_image_alt_text: content.previous_post_featured_image_alt_text || content.previous_post_name,
+        post_summary: "",
+        label: "Previous Post",
+        blog_tags: []
+      },
+      {
+        html_title: content.next_post_name,
+        url: content.next_post_slug,
+        featured_image: content.next_post_featured_image,
+        featured_image_alt_text: content.next_post_featured_image_alt_text || content.next_post_name,
+        post_summary: "",
+        label: "Next Post",
+        blog_tags: []
+    }
+  ]|selectattr('html_title', 'defined') -%}
+  {%- js_partial
+    path="@projects/LizShawCom-project/LizShawCom-app/components/partials/CardGrid.tsx",
+    ariaDescription="Related blog posts",
+    cards="{{ prev_next_posts|tojson }}",
+    maxWidth="800px",
+    aboveMobileGap="3%",
+    no_wrapper=True
+  -%}
+
+
+{#
       <h3 class="post__centered-heading">Further Reading</h3>
       <aside class="cards" data-variant="related" role="supplemental">
         {% from 'Templates/Custom/Blog/Mordite Blog/Macros/card.html' import renderCard %}
@@ -57,4 +92,5 @@
           {% endfor %}
         </p>
       {%- endif -%}
+      #}
 {% endblock body %}

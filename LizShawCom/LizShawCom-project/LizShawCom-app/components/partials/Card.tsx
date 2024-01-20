@@ -10,10 +10,15 @@ export interface CardProps {
   url: string;
   featured_image_alt_text?: string;
   featured_image: string;
+  /**
+   * Optional label for the card. Used for additional info such as displaying
+   * 'Featured', 'Previous', and 'Next' cards.
+   */
+  label?: string;
   post_summary: string;
   html_title: string;
   blog_tags?: Array<TagWithSlug>; // TODO: Test URL with space, hyphenation, etc.
-  width: 'default' | 'wide';
+  width?: 'default' | 'wide';
 }
 
 const LI = styled.li<{ $width: CardProps['width'] }>`
@@ -57,7 +62,7 @@ const Inner = styled.div`
   flex-direction: row-reverse;
 `;
 
-const Featured = styled.span`
+const Label = styled.span`
   position: absolute;
   top: 22px;
   left: 32px;
@@ -127,12 +132,12 @@ const Card = ({
   featured_image: imageSrc,
   featured_image_alt_text: imageAlt,
   html_title: title,
+  label,
   post_summary: summary,
   url,
-  width,
+  width = 'default',
 }: CardProps) => {
   const { allTags } = useContext(BlogListingContext);
-  const isFeatured = cardTags.some(({ name }) => name === featuredTagName);
   const computedTags = addTagSlug(allTags, cardTags);
 
   return (
@@ -155,7 +160,7 @@ const Card = ({
           <Summary>{summary}</Summary>
         </Content>
         {/* TODO: Localize Featured text */}
-        {isFeatured && <Featured>{featuredTagName}</Featured>}
+        {label && <Label>{label}</Label>}
         <ImageLink href={url}>
           <CardOverlay color={color} />
           <Img alt={imageAlt} src={imageSrc} loading="lazy" />
