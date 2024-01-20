@@ -6,14 +6,11 @@
   dataQueryPath: ./blog-listing.graphql
 -->
 
-
 {# TODO: Write post about passing offset, limit, etc. into GraphQL blog query#}
 
 {% extends "./layouts/base.hubl.html" %}
 
 {%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
-
-{# blog_author.id #}
 
 {%- for blog_post in blog_posts -%}
   {# FIXME: Open request / make PR to include most of these options via GraphQL #}
@@ -49,8 +46,19 @@
         -%}
 
       {%- elif variant == 'tag' -%}
-        <h1>TODO: Tags</h1>
-        <h2>TODO: {{topic}}</h2>
+        {# TAG PAGE #}
+        {%- set tagCloudCollection = blog_tags(content_group.id, 50) -%}
+        {%- for tag in tagCloudCollection -%}
+          {%- do blog_post.update({
+            "slug": blog_tag_url(group.id, item.slug)
+          })-%}
+        {%- endfor -%}
+        {%- js_partial
+          path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListingTagHeader.tsx",
+          selectedSlug="{{ topic }}",
+          tagCloudCollection="{{ tagCloudCollection|tojson }}",
+          no_wrapper=True
+        -%}
         {# TODO: Request or PR ability to filter via tag in GraphQL query #}
         {%- set blog_posts_by_topic = [] -%}
         {%- for post in blog_posts -%}

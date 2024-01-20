@@ -1,7 +1,8 @@
 import { CardProps } from '../Card';
 import { TagWithSlug } from '../Tag';
 
-export const formatTagSlug = (tagName: string) => `/tag/${tagName}`;
+export const formatTagSlug = (tagName: string | undefined) =>
+  !!tagName ? `/tag/${tagName}` : '';
 
 export default (
   allTags: Array<TagWithSlug>,
