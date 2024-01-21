@@ -14,11 +14,7 @@ const MaxWidth = styled.div`
   ${maxWidthCss}
 `;
 
-const Article = styled.article`
-  @media screen and (min-width: 768px) {
-    padding: 0 40px;
-  }
-`;
+const Article = styled.article``;
 
 const AuthorArticle = ({ avatarSrc, bio, fullName, linkedin }: Props) => {
   return (

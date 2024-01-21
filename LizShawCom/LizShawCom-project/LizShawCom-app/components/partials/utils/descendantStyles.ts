@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { accentColors, hexToRGBA } from './colors';
+import { hrStyles } from '../HR';
 
 const preBorderColor = hexToRGBA(accentColors.blue, 0.6);
 
@@ -35,7 +36,6 @@ export default css`
   ol li {
     margin-bottom: 10px;
   }
-  hr,
   pre {
     margin: var(--bottom-margin-default) 0;
     @media screen and (min-width: 768px) {
@@ -73,20 +73,7 @@ export default css`
     width: 100%;
   }
   hr {
-    position: relative;
-    width: 100%;
-    height: 2px;
-    font-size: 21px;
-    border: 0;
-
-    &::before {
-      content: '. . .';
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      line-height: 0;
-    }
+    ${hrStyles}
   }
   table {
     font-size: var(--container-fs-body);

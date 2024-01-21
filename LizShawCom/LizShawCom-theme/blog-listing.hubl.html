@@ -135,6 +135,7 @@
                   <li><a class="post-listing__pagination-last {% if current_page_num + 1 > contents.total_page_count %}disabled{% endif %}" rel="next" href="{% if current_page_num + 1 > contents.total_page_count or current_page_num + 1 == 1 %}{{ page_meta.canonical_url }}{% else %}{{ blog_page_link(next_page_num) }}{% endif %}">Next ›</a></li>
               </ul>
           </div>
+
       {% endif %}
     {%- endunless -%}
   {% endblock body %}

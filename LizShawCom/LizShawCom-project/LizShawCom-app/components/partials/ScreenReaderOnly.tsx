@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 export interface ScreenReaderOnlyProps {
   /** The HTML tag this should render as */
@@ -10,9 +10,10 @@ export interface ScreenReaderOnlyProps {
   focusable?: boolean;
 }
 
-const Component = styled.span<{
-  $focusable: ScreenReaderOnlyProps['focusable'];
-}>`
+/**
+ * Visually-hidden CSS that can still be parsed by assistive technology.
+ */
+export const srOnlyCss = css`
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -23,19 +24,25 @@ const Component = styled.span<{
   position: absolute;
   width: 1px;
   white-space: nowrap;
+`;
+
+const Component = styled.span<{
+  $focusable: ScreenReaderOnlyProps['focusable'];
+}>`
+  ${srOnlyCss}
   ${({ $focusable }) => {
     if ($focusable) {
       return `
-      &:focus,
-      &:active {
-        clip: auto;
-        clip-path: none;
-        height: auto;
-        margin: auto;
-        overflow: visible;
-        width: auto;
-        white-space: normal;
-      }
+        &:focus,
+        &:active {
+          clip: auto;
+          clip-path: none;
+          height: auto;
+          margin: auto;
+          overflow: visible;
+          width: auto;
+          white-space: normal;
+        }
       `;
     }
     return null;
