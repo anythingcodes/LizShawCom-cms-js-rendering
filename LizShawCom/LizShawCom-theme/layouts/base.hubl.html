@@ -69,14 +69,20 @@
       {%- block body -%}
       {%- endblock body -%}
     </main>
-    {%- js_partial
-      path="@projects/LizShawCom-project/LizShawCom-app/components/partials/HR.tsx",
-      no_wrapper=True
-    -%}
     {%- block footer -%}
+      {%- set popular_posts = blog_popular_posts(content_group.id, 2) -%}
+
       {%- js_partial
-        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Footer.jsx",
-        no_wrapper=True -%}
+        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/HR.tsx",
+        no_wrapper=True
+      -%}
+
+      {%- js_partial
+        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Footer.tsx",
+        popularPostsCollection="{{ popular_posts|tojson }}",
+        no_wrapper=True
+      -%}
+
     {%- endblock footer -%}
 
     {# To see a full list of what is included via standard_footer_includes please reference this article: https://developers.hubspot.com/docs/cms/hubl/variables#required-page-template-variables #}

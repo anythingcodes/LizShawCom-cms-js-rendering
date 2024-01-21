@@ -4,11 +4,26 @@ import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import maxWidthCss from './utils/maxWidthCss';
 import { srOnlyCss } from './ScreenReaderOnly';
 import { Island } from '@hubspot/cms-components';
+// @ts-expect-error island query param
 import HubSpotForm from '../islands/HubSpotForm?island';
+
+interface PopularPostResponse {
+  objects: Array<{
+    slug: string;
+    featuredImage: string;
+    featuredImageAltText: string;
+    title: string;
+    publish_date_local_time: number;
+    blogPostAuthor: {
+      fullName: string;
+      slug: string;
+    };
+  }>;
+}
 
 const inputHeight = 68;
 const submitOffset = 5;
-const formAccent = "#633ce2";
+const formAccent = '#633ce2';
 const targetId = 'newsletter-form';
 
 const Wrapper = styled.footer`
@@ -37,8 +52,8 @@ const Wrapper = styled.footer`
         outline: 2px solid transparent;
         border-radius: 8px;
         color: #070e19;
-        background-color: rgba(99,60,226,0.06);
-        transition: outline .25s ease;
+        background-color: rgba(99, 60, 226, 0.06);
+        transition: outline 0.25s ease;
         @media screen and (max-width: 1170px) and (min-width: 768px) {
           padding-right: 14vw;
         }
@@ -62,7 +77,7 @@ const Wrapper = styled.footer`
       margin-top: 10px;
       font-size: var(--fs-5);
     }
-    input[type="submit"] {
+    input[type='submit'] {
       position: absolute;
       right: ${submitOffset}px;
       top: ${submitOffset}px;
@@ -75,11 +90,11 @@ const Wrapper = styled.footer`
       border: none;
       outline: none;
       cursor: pointer;
-      transition: background .25s;
+      transition: background 0.25s;
       color: #fff;
       background: ${formAccent};
       box-sizing: border-box;
-      height: ${inputHeight - (submitOffset * 2)}px;
+      height: ${inputHeight - submitOffset * 2}px;
       padding: 16px;
       &:hover {
         background: #582fe0;
@@ -107,21 +122,29 @@ const Row = styled.div`
   }
 `;
 
-const Cell =styled.div`
+const Cell = styled.div`
   @media screen and (min-width: 768px) {
-    flex: 1
+    flex: 1;
   }
 `;
 
-const H2 = styled.h2`
+const PopularPostsUL = styled.ul`
+  list-style: none;
+  font-size: var(--container-fs-body);
+`;
 
+const PopularPostsLI = styled.li`
+  margin-bottom: 10px;
 `;
 
 const P = styled.p`
   margin-bottom: 20px;
 `;
 
-const Footer = () => {
+const Footer = ({ popularPostsCollection }) => {
+  const { objects: posts }: PopularPostResponse = JSON.parse(
+    popularPostsCollection,
+  );
 
   return (
     <StyledComponentsRegistry>
@@ -129,22 +152,61 @@ const Footer = () => {
       <Wrapper>
         <Row>
           <Cell>
-            <H2>About Liz</H2>
-            <P>I&#39;m a full-time software engineer passionate about growing my own food and becoming as self-sufficient as possible. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</P>
+            <h2>About Liz</h2>
+            <P>
+              I&#39;m a full-time software engineer passionate about growing my
+              own food and becoming as self-sufficient as possible. Lorem ipsum
+              dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+              amet.
+            </P>
             {/* <div>TODO: social row here</div> */}
           </Cell>
           <Cell>
-            <H2>Latest Posts</H2>
-            <p>Coming soon.</p>
+            <h2>Popular Posts</h2>
+            <PopularPostsUL>
+              {posts.map(
+                ({
+                  slug,
+                  title,
+                  blogPostAuthor: { fullName, slug: authorSlug },
+                }) => (
+                  <PopularPostsLI>
+                    <strong>
+                      <a href={`/${slug}`}>{title}</a>
+                    </strong>{' '}
+                    by <a href={`/author/${authorSlug}`}>{fullName}</a>
+                  </PopularPostsLI>
+                ),
+              )}
+            </PopularPostsUL>
           </Cell>
           <Cell>
-            <H2>Newsletter</H2>
-            <P>Subscribe to the newsletter for blog post notifications, early access to discounts, and product updates.</P>
+            <h2>Newsletter</h2>
+            <P>
+              Subscribe to the newsletter for blog post notifications, early
+              access to discounts, and product updates.
+            </P>
             <div id="newsletter-form" />
-            <Island module={HubSpotForm} hydrateOn="visible" portalId="2068068" formId="c8c5c76b-cba2-4435-a7f5-161828626576" targetId={targetId} />
+            <Island
+              module={HubSpotForm}
+              hydrateOn="visible"
+              portalId="2068068"
+              formId="c8c5c76b-cba2-4435-a7f5-161828626576"
+              targetId={targetId}
+            />
           </Cell>
         </Row>
-        <Meta>{new Date().getFullYear()} &copy; Liz Shaw. Built &amp; deployed on <a href="https://developers.hubspot.com/cms" target="_blank" rel="nofollow noreferrer">HubSpot CMS Hub</a>.</Meta>
+        <Meta>
+          {new Date().getFullYear()} &copy; Liz Shaw. Built &amp; deployed on{' '}
+          <a
+            href="https://developers.hubspot.com/cms"
+            target="_blank"
+            rel="nofollow noreferrer"
+          >
+            HubSpot CMS Hub
+          </a>
+          .
+        </Meta>
       </Wrapper>
     </StyledComponentsRegistry>
   );
