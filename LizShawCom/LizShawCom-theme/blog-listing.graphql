@@ -2,8 +2,9 @@
 # $limit: "{{ topic ? 200 : contents.limit }}"
 # $offset: "{{ contents.offset }}"
 # $authorId: "{{ blog_author.id }}"
+# $authorSlug: "{{ author }}"
 
-query RecentBlogPostsQuery($authorId: String, $contentGroupId: String, $limit: Int, $offset: Int) {
+query BlogListingQuery($authorId: String, $contentGroupId: String, $limit: Int, $offset: Int, $authorSlug: String!) {
   BLOG {
     post_collection(filter: {blog_author_id__eq: $authorId, content_group_id__eq: $contentGroupId, state__eq: "published"}, limit: $limit, offset: $offset, orderBy: updated__desc) {
       items {
@@ -19,5 +20,12 @@ query RecentBlogPostsQuery($authorId: String, $contentGroupId: String, $limit: I
         }
       }
     }
+    author(uniqueIdentifier: "slug", uniqueIdentifierValue: $authorSlug) {
+      avatar
+      bio
+      full_name
+      linkedin
+    }
   }
 }
+
