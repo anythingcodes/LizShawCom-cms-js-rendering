@@ -3,15 +3,18 @@ import { styled } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 import maxWidthCss from './utils/maxWidthCss';
 import { srOnlyCss } from './ScreenReaderOnly';
+import { Island } from '@hubspot/cms-components';
+import HubSpotForm from '../islands/HubSpotForm?island';
 
 const inputHeight = 68;
 const submitOffset = 5;
 const formAccent = "#633ce2";
+const targetId = 'newsletter-form';
 
 const Wrapper = styled.footer`
   ${maxWidthCss}
   font-size: var(--fs-4);
-  #newsletter-form {
+  #${targetId} {
     form {
       position: relative;
     }
@@ -138,6 +141,7 @@ const Footer = () => {
             <H2>Newsletter</H2>
             <P>Subscribe to the newsletter for blog post notifications, early access to discounts, and product updates.</P>
             <div id="newsletter-form" />
+            <Island module={HubSpotForm} hydrateOn="visible" portalId="2068068" formId="c8c5c76b-cba2-4435-a7f5-161828626576" targetId={targetId} />
           </Cell>
         </Row>
         <Meta>{new Date().getFullYear()} &copy; Liz Shaw. Built &amp; deployed on <a href="https://developers.hubspot.com/cms" target="_blank" rel="nofollow noreferrer">HubSpot CMS Hub</a>.</Meta>
