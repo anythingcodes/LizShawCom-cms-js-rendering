@@ -9,8 +9,8 @@
 {# TODO: Write post about passing offset, limit, etc. into GraphQL blog query#}
 
 {% extends "./layouts/base.hubl.html" %}
-
-{%- set blog_posts = data_query.data.BLOG.post_collection.items -%}
+{%- set variant = (!topic and !blog_author) ? 'home' : (topic ? 'tag' : 'author') -%}
+{%- set blog_posts = data_query.data.BLOG[variant == 'author' ? 'authorPosts' : 'allPosts'].items -%}
 
 {%- for blog_post in blog_posts -%}
   {# FIXME: Open request / make PR to include most of these options via GraphQL #}
@@ -25,7 +25,7 @@
 
 {% block body %}
 
-  {%- set variant = (!topic and !blog_author) ? 'home' : (topic ? 'tag' : 'author') -%}
+
   {# TODO: Home (!topic and !blog_author) #}
   {# TODO: blog_author or topic #}
 

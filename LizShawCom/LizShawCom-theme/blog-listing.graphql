@@ -2,10 +2,12 @@
 # $limit: "{{ topic ? 200 : contents.limit }}"
 # $offset: "{{ contents.offset }}"
 # $authorId: "{{ blog_author.id }}"
+# $authorSlug: "{{ author || "" }}"
+# $isAuthor: "{{ !topic and blog_author }}"
 
-query RecentBlogPostsQuery($authorId: String, $contentGroupId: String, $limit: Int, $offset: Int) {
+query BlogListingQuery($authorId: String, $isAuthor: Boolean!, $authorSlug: String! = "", $contentGroupId: String, $limit: Int, $offset: Int) {
   BLOG {
-    post_collection(filter: {blog_author_id__eq: $authorId, content_group_id__eq: $contentGroupId, state__eq: "published"}, limit: $limit, offset: $offset, orderBy: updated__desc) {
+     allPosts: post_collection(filter: {content_group_id__eq: $contentGroupId, state__eq: "published"}, limit: $limit, offset: $offset, orderBy: updated__desc) @skip(if: $isAuthor) {
       items {
         html_title
         post_summary
@@ -19,5 +21,26 @@ query RecentBlogPostsQuery($authorId: String, $contentGroupId: String, $limit: I
         }
       }
     }
+    authorPosts: post_collection(filter: {blog_author_id__eq: $authorId, content_group_id__eq: $contentGroupId, state__eq: "published"}, limit: $limit, offset: $offset, orderBy: updated__desc) @include(if: $isAuthor) {
+      items {
+        html_title
+        post_summary
+        post_body
+        featured_image
+        featured_image_alt_text
+        url
+        blog_tags {
+          name
+          id
+        }
+      }
+    }
+    author(uniqueIdentifier: "slug", uniqueIdentifierValue: $authorSlug) @include(if: $isAuthor) {
+      avatar
+      bio
+      full_name
+      linkedin
+    }
   }
 }
+
