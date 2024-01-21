@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { styled, css } from 'styled-components';
 import StyledComponentsRegistry from '../StyledComponentsRegistry';
 
 interface Props {
   linkLabel?: string;
   linkUrl?: string;
-  title: string;
+  title: string | (() => ReactElement);
 }
 
 /** Allows text to covers the absolutely-positioned grey line */
@@ -58,7 +58,7 @@ const AsideHeader = ({ linkUrl, linkLabel, title }: Props) => {
   return (
     <StyledComponentsRegistry>
       <HeaderWrapper>
-        <H2>{title}</H2>
+        <H2>{typeof title === 'function' ? title() : title}</H2>
         {!!linkLabel && !!linkUrl && <A href={linkUrl}>See all {linkLabel}</A>}
       </HeaderWrapper>
     </StyledComponentsRegistry>
