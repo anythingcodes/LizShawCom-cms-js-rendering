@@ -18,12 +18,6 @@ const Wrapper = styled.section`
   margin-top: 0;
 `;
 
-const Inner = styled.div`
-  @media screen and (min-width: 768px) {
-    padding: 0 40px;
-  }
-`;
-
 const UL = styled.ul`
   margin-bottom: 120px;
 `;
@@ -37,33 +31,31 @@ const TagHeader = ({ selectedSlug, tagCloudCollection: json }: Props) => {
   return (
     <StyledComponentsRegistry>
       <Wrapper>
-        <Inner>
-          <h1>Tags</h1>
-          <UL>
-            {tags.map((tag) => {
-              const isSelected = tag.slug === selectedSlug;
-              return (
-                <LI key={tag.label}>
-                  <Tag
-                    color={isSelected ? 'pink' : 'blue'}
-                    slug={formatTagSlug(tag.slug)}
-                    name={tag.label}
-                    variant="large"
-                    disabled={isSelected}
-                  />
-                </LI>
-              );
-            })}
-          </UL>
-          {/* TODO: Localize */}
-          <AsideHeader
-            title={() => (
-              <>
-                Posts tagged with <em>{selectedSlug}</em>
-              </>
-            )}
-          />
-        </Inner>
+        <h1>Tags</h1>
+        <UL>
+          {tags.map((tag) => {
+            const isSelected = tag.slug === selectedSlug;
+            return (
+              <LI key={tag.label}>
+                <Tag
+                  color={isSelected ? 'pink' : 'blue'}
+                  slug={formatTagSlug(tag.slug)}
+                  name={tag.label}
+                  variant="large"
+                  disabled={isSelected}
+                />
+              </LI>
+            );
+          })}
+        </UL>
+        {/* TODO: Localize */}
+        <AsideHeader
+          title={() => (
+            <>
+              Posts tagged with <em>{selectedSlug}</em>
+            </>
+          )}
+        />
       </Wrapper>
     </StyledComponentsRegistry>
   );

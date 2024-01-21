@@ -25,7 +25,6 @@ const UL = styled.ul<{
 }>`
   ${animation}
   max-width: ${({ $maxWidth }) => ($maxWidth ? $maxWidth : `var(--max-width)`)};
-  padding: 0 var(--gutter-mobile);
   margin: 0 auto;
   list-style-type: none;
   width: 100%;
@@ -40,8 +39,6 @@ const UL = styled.ul<{
   @media screen and (min-width: 768px) {
     gap: ${({ $aboveMobileGap }) =>
       $aboveMobileGap ? $aboveMobileGap : `var(--bottom-margin-default)`};
-    padding-left: 40px;
-    padding-right: 40px;
   }
 `;
 
