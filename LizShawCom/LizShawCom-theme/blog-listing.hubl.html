@@ -38,15 +38,12 @@
     {%- endif -%}
 
     {% if variant == 'author' %}
-      {%- set author = data_query.data.BLOG.author -%}
-      {%- js_partial
-        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/AuthorArticle.tsx",
-        avatarSrc="{{ author.avatar }}",
-        bio="{{ author.bio }}",
-        fullName="{{ author.full_name }}",
-        linkedin="{{ author.linkedin }}",
+      {%- set title = "Posts by " ~ blog_author.label -%}
+        {%- js_partial
+        path="@projects/LizShawCom-project/LizShawCom-app/components/partials/Hero.tsx",
+        title="{{ title }}",
         no_wrapper=True
-      -%}
+        -%}
 
       {%- elif variant == 'tag' -%}
         {# TAG PAGE #}
