@@ -6,19 +6,10 @@ import { srOnlyCss } from './ScreenReaderOnly';
 import { Island } from '@hubspot/cms-components';
 // @ts-expect-error island query param
 import HubSpotForm from '../islands/HubSpotForm?island';
+import PopularPosts from './PopularPosts';
 
-interface PopularPostResponse {
-  objects: Array<{
-    slug: string;
-    featuredImage: string;
-    featuredImageAltText: string;
-    title: string;
-    publish_date_local_time: number;
-    blogPostAuthor: {
-      fullName: string;
-      slug: string;
-    };
-  }>;
+export interface FooterProps {
+  popularPostsCollection: string;
 }
 
 const inputHeight = 68;
@@ -128,88 +119,58 @@ const Cell = styled.div`
   }
 `;
 
-const PopularPostsUL = styled.ul`
-  list-style: none;
-  font-size: var(--container-fs-body);
-`;
-
-const PopularPostsLI = styled.li`
-  margin-bottom: 10px;
-`;
-
 const P = styled.p`
   margin-bottom: 20px;
 `;
 
-const Footer = ({ popularPostsCollection }) => {
-  const { objects: posts }: PopularPostResponse = JSON.parse(
-    popularPostsCollection,
-  );
-
-  return (
-    <StyledComponentsRegistry>
-      {/* TODO: Localize */}
-      <Wrapper>
-        <Row>
-          <Cell>
-            <h2>About Liz</h2>
-            <P>
-              I&#39;m a full-time software engineer passionate about growing my
-              own food and becoming as self-sufficient as possible. Lorem ipsum
-              dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-              amet.
-            </P>
-            {/* <div>TODO: social row here</div> */}
-          </Cell>
-          <Cell>
-            <h2>Popular Posts</h2>
-            <PopularPostsUL>
-              {posts.map(
-                ({
-                  slug,
-                  title,
-                  blogPostAuthor: { fullName, slug: authorSlug },
-                }) => (
-                  <PopularPostsLI>
-                    <strong>
-                      <a href={`/${slug}`}>{title}</a>
-                    </strong>{' '}
-                    by <a href={`/author/${authorSlug}`}>{fullName}</a>
-                  </PopularPostsLI>
-                ),
-              )}
-            </PopularPostsUL>
-          </Cell>
-          <Cell>
-            <h2>Newsletter</h2>
-            <P>
-              Subscribe to the newsletter for blog post notifications, early
-              access to discounts, and product updates.
-            </P>
-            <div id="newsletter-form" />
-            <Island
-              module={HubSpotForm}
-              hydrateOn="visible"
-              portalId="2068068"
-              formId="c8c5c76b-cba2-4435-a7f5-161828626576"
-              targetId={targetId}
-            />
-          </Cell>
-        </Row>
-        <Meta>
-          {new Date().getFullYear()} &copy; Liz Shaw. Built &amp; deployed on{' '}
-          <a
-            href="https://developers.hubspot.com/cms"
-            target="_blank"
-            rel="nofollow noreferrer"
-          >
-            HubSpot CMS Hub
-          </a>
-          .
-        </Meta>
-      </Wrapper>
-    </StyledComponentsRegistry>
-  );
-};
+const Footer = ({ popularPostsCollection }: FooterProps) => (
+  <StyledComponentsRegistry>
+    {/* TODO: Localize */}
+    <Wrapper>
+      <Row>
+        <Cell>
+          <h2>About Liz</h2>
+          <P>
+            I&#39;m a full-time software engineer passionate about growing my
+            own food and becoming as self-sufficient as possible. Lorem ipsum
+            dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+            amet.
+          </P>
+          {/* <div>TODO: social row here</div> */}
+        </Cell>
+        <Cell>
+          <h2>Popular Posts</h2>
+          <PopularPosts popularPostsCollection={popularPostsCollection} />
+        </Cell>
+        <Cell>
+          <h2>Newsletter</h2>
+          <P>
+            Subscribe to the newsletter for blog post notifications, early
+            access to discounts, and product updates.
+          </P>
+          <div id="newsletter-form" />
+          <Island
+            module={HubSpotForm}
+            hydrateOn="visible"
+            portalId="2068068"
+            formId="c8c5c76b-cba2-4435-a7f5-161828626576"
+            targetId={targetId}
+          />
+        </Cell>
+      </Row>
+      <Meta>
+        {new Date().getFullYear()} &copy; Liz Shaw. Built &amp; deployed on{' '}
+        <a
+          href="https://developers.hubspot.com/cms"
+          target="_blank"
+          rel="nofollow noreferrer"
+        >
+          HubSpot CMS Hub
+        </a>
+        .
+      </Meta>
+    </Wrapper>
+  </StyledComponentsRegistry>
+);
 
 export default Footer;
