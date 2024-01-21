@@ -47,12 +47,8 @@
 
       {%- elif variant == 'tag' -%}
         {# TAG PAGE #}
-        {%- set tagCloudCollection = blog_tags(content_group.id, 50) -%}
-        {%- for tag in tagCloudCollection -%}
-          {%- do blog_post.update({
-            "slug": blog_tag_url(group.id, item.slug)
-          })-%}
-        {%- endfor -%}
+        {%- set tagCloudCollection = blog_tags(content_group.id, 50)|sort(False, False, "name") -%}
+
         {%- js_partial
           path="@projects/LizShawCom-project/LizShawCom-app/components/partials/BlogListingTagHeader.tsx",
           selectedSlug="{{ topic }}",

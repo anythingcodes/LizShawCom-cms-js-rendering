@@ -8,11 +8,11 @@ const StyledFooter = styled.footer`
   text-align: center;
   font-size: var(--fs-5);
   color: #707584;
-  padding: 40px;
 `;
 
 const Contents = styled.div`
   border-top: 1px solid #eeeff1;
+  padding: 40px;
 `
 
 const Footer = () => {

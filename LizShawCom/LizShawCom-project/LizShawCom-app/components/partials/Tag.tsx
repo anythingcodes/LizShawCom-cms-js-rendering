@@ -10,23 +10,34 @@ export interface TagGraphQLResponse {
 export interface TagWithSlug extends TagGraphQLResponse {
   slug: string;
   color?: OverlayColor;
+  /**
+   * Disables pointer events. Used on the tag listing page to disable the
+   * selected tag.
+   */
+  disabled?: boolean;
+  variant?: 'large' | 'default';
 }
 
 export const featuredTagName = 'Featured';
 
 const defaultColor = 'purple';
 
-const A = styled.a<{ $color: TagWithSlug['color'] }>`
+const A = styled.a<{
+  $color: TagWithSlug['color'];
+  $disabled: TagWithSlug['disabled'];
+  $variant: TagWithSlug['variant'];
+}>`
   display: inline-block;
   padding: 4px 12px;
   margin: 0 4px 4px 0;
-  font-size: var(--fs-5);
+  font-size: ${({ $variant }) =>
+    $variant === 'large' ? 'var(--fs-4)' : 'var(--fs-5)'};
   line-height: 1;
   font-weight: 500;
   border-radius: 30px;
   color: #fff;
   transition: 0.25s;
-  pointer-events: all;
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'all')};
   background-color: ${({ $color = defaultColor }) => accentColors[$color]};
   &:hover,
   &:focus {
@@ -35,8 +46,21 @@ const A = styled.a<{ $color: TagWithSlug['color'] }>`
   }
 `;
 
-const Tag = ({ color = defaultColor, name, slug }: TagWithSlug) => (
-  <A $color={color} href={slug} data-color={color}>
+const Tag = ({
+  color = defaultColor,
+  disabled = false,
+  name,
+  slug,
+  variant = 'default',
+}: TagWithSlug) => (
+  <A
+    $color={color}
+    $disabled={disabled}
+    $variant={variant}
+    href={slug}
+    data-disabled={disabled}
+    data-color={color}
+  >
     {name}
   </A>
 );

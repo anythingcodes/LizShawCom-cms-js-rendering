@@ -6,36 +6,47 @@ import Tag from './Tag';
 import maxWidthCss from './utils/maxWidthCss';
 import { formatTagSlug } from './utils/addTagSlug';
 
-const TagCloud = styled.ul``;
+interface Props {
+  selectedSlug: string;
+  tagCloudCollection: string;
+}
+
+const LI = styled.li`
+  display: inline;
+`;
 
 const Wrapper = styled.section`
   ${maxWidthCss}
+  margin-top: 0;
+  max-width: calc(var(--max-width) - 80px);
+  @media screen and (min-width: 768px) {
+    padding: 0 var(--gutter-desktop);
+  }
 `;
 
-const LargeTag = styled((props) => <Tag {...props} />)`
-  font-size: var(--fs-3);
-  ${({ disabled }) => (disabled ? `pointer-events: none;` : null)}
-`;
-
-const TagHeader = ({ selectedSlug, tagCloudCollection }) => {
-  const allTags = JSON.parse(tagCloudCollection);
-
+const TagHeader = ({ selectedSlug, tagCloudCollection: json }) => {
+  const tags = JSON.parse(json);
   return (
     <StyledComponentsRegistry>
       <Wrapper>
         <h1>Tags</h1>
-        <TagCloud>
-          {allTags.map((tag) => (
-            <li key={tag.label}>
-              <LargeTag
-                color={tag.slug === selectedSlug ? 'pink' : 'blue'}
-                slug={formatTagSlug(tag.slug)}
-                name={tag.label}
-                disabled={tag.slug === selectedSlug}
-              />
-            </li>
-          ))}
-        </TagCloud>
+        <ul>
+          {tags.map((tag) => {
+            const isSelected = tag.slug === selectedSlug;
+            return (
+              <LI key={tag.label}>
+                <Tag
+                  color={isSelected ? 'pink' : 'blue'}
+                  slug={formatTagSlug(tag.slug)}
+                  name={tag.label}
+                  variant="large"
+                  disabled={isSelected}
+                />
+              </LI>
+            );
+          })}
+        </ul>
+        {/* TODO: Localize */}
         <AsideHeader title={`Posts tagged with ${selectedSlug}`} />
       </Wrapper>
     </StyledComponentsRegistry>
