@@ -19,9 +19,6 @@ const Wrapper = styled.section`
   ${maxWidthCss}
   margin-top: 0;
   max-width: calc(var(--max-width) - 80px);
-  @media screen and (min-width: 768px) {
-    padding: 0 var(--gutter-desktop);
-  }
 `;
 
 const TagHeader = ({ selectedSlug, tagCloudCollection: json }) => {
