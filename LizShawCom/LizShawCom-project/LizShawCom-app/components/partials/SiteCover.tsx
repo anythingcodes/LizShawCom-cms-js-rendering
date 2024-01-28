@@ -41,7 +41,7 @@ const SiteCover = () => (
   <StyledComponentsRegistry>
     <Wrapper aria-hidden={true}>
       <ImgWrapper>
-        <Img loading="lazy" src={siteCoverHref} />
+        <Img loading="lazy" src={siteCoverHref} alt="" role="presentation" />
       </ImgWrapper>
     </Wrapper>
   </StyledComponentsRegistry>
